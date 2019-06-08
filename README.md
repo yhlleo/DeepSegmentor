@@ -1,12 +1,12 @@
 # DeepSegmentor
 A Pytorch implementation of DeepCrack and RoadNet projects.
 
-## Datasets
+## 1.Datasets
 
  - [Crack Detection Dataset](https://github.com/yhlleo/DeepCrack)
  - [Multi-task Road Detection Dataset](https://github.com/yhlleo/RoadNet)
 
-## Installation
+## 2.Installation
 
 We provide an user-friendly configuring method via [Conda](https://docs.conda.io/en/latest/) system, and you can create a new Conda environment using the command:
 
@@ -14,17 +14,17 @@ We provide an user-friendly configuring method via [Conda](https://docs.conda.io
 conda env create -f environment.yml
 ```
 
-## Training
+## 3.Training
 
 Download a dataset and copy it into the folder `datasets`, you can use our provided data loading module or rewrite new ones.
 
 //TODO
 
-## Testing
+## 4.Testing
 
 //TODO
 
-## Evaluation
+## 5.Evaluation
 
 //TODO
 
