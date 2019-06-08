@@ -70,7 +70,7 @@ class DeepCrackModel(BaseModel):
         self.outputs = self.netG(self.image)
 
         # for visualization
-        self.label_viz = (self.label-0.5)/0.5
+        self.label_viz = (self.label.float()-0.5)/0.5
         self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
         if self.display_sides:
             self.side1 = (self.softmax(self.outputs[0])[:,1].detach().unsqueeze(1)-0.5)/0.5
