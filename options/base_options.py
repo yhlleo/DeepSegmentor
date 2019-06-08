@@ -61,6 +61,7 @@ class BaseOptions():
         parser.add_argument('--use_augment', type=int, default=1, help='using data augmentation for training')
         parser.add_argument('--display_sides', type=int, default=1, help='displaying the side output results')
         parser.add_argument('--num_classes', type=int, default=2, help='number of classes')
+        parser.add_argument('--use_l1', type=int, default=1, help='using l1 loss')
         self.initialized = True
         return parser
 
