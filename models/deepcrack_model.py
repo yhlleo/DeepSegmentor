@@ -1,7 +1,7 @@
 import torch
 import itertools
 from .base_model import BaseModel
-from .deepcrack_networks import define_deepcrack as deepcrack
+from .deepcrack_networks import define_deepcrack
 
 class DeepCrackModel(BaseModel):
     """
@@ -33,13 +33,13 @@ class DeepCrackModel(BaseModel):
         self.model_names = ['G']
 
         # define networks 
-        self.netG = deepcrack.define_deepcrack(opt.input_nc, 
-                                               opt.num_classes, 
-                                               opt.ngf, 
-                                               opt.norm,
-                                               opt.init_type, 
-                                               opt.init_gain, 
-                                               self.gpu_ids)
+        self.netG = define_deepcrack(opt.input_nc, 
+                                     opt.num_classes, 
+                                     opt.ngf, 
+                                     opt.norm,
+                                     opt.init_type, 
+                                     opt.init_gain, 
+                                     self.gpu_ids)
 
         self.softmax = torch.nn.Softmax(dim=1)
 
