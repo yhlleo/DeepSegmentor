@@ -18,8 +18,8 @@ class DeepCrackDataset(BaseDataset):
         """
         BaseDataset.__init__(self, opt)
 
-        self.img_paths = make_dataset(os.path.join(self.dataroot, '{}_img'.format(opt.phase)))
-        self.lab_dir = os.path.join(self.dataroot, '{}_lab'.format(opt.phase))
+        self.img_paths = make_dataset(os.path.join(opt.dataroot, '{}_img'.format(opt.phase)))
+        self.lab_dir = os.path.join(opt.dataroot, '{}_lab'.format(opt.phase))
 
         self.img_transforms = transforms.Compose([transforms.ToTensor(),
                                                   transforms.Normalize((0.5, 0.5, 0.5),
