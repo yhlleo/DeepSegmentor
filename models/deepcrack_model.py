@@ -27,7 +27,7 @@ class DeepCrackModel(BaseModel):
         self.loss_names = ['side', 'fused', 'total']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.display_sides = opt.display_sides
-        self.visual_names = ['image', 'label', 'fused']
+        self.visual_names = ['image', 'label_viz', 'fused']
         if self.display_sides:
             self.visual_names += ['side1', 'side2', 'side3', 'side4', 'side5']
         # specify the models you want to save to the disk. 

@@ -64,7 +64,6 @@ class DeepCrackNet(nn.Module):
         self.side_conv5 = nn.Conv2d(ngf*8, num_classes, kernel_size=1, stride=1, bias=False)
 
         self.fuse_conv = nn.Conv2d(num_classes*5, num_classes, kernel_size=1, stride=1, bias=False)
-
         self.maxpool = nn.MaxPool2d(2, stride=2)
 
     def forward(self, x):
@@ -99,7 +98,7 @@ def define_deepcrack(in_nc,
                      num_classes, 
                      ngf, 
                      norm='batch',
-                     init_type='normal', 
+                     init_type='xavier', 
                      init_gain=0.02, 
                      gpu_ids=[]):
     net = DeepCrackNet(in_nc, num_classes, ngf, norm)
