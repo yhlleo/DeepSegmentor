@@ -67,7 +67,7 @@ class DeepCrackDataset(BaseDataset):
         lab = Image.fromarray(lab.copy())
 
         # apply affine transform
-        if self.use_augment:
+        if self.opt.use_augment:
             params = self._get_params()
             img = self._im_trans(img, params)
             lab = self._im_trans(lab, params)
