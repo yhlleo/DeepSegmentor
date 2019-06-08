@@ -85,7 +85,7 @@ class DeepCrackModel(BaseModel):
 
         self.loss_side = 0.0
         for out, w in zip(self.outputs[:-1], self.weight_side):
-            self.loss_side += self.criterionSeg(out, self.label)
+            self.loss_side += self.criterionSeg(out, self.label) * w
 
         self.loss_fused = self.criterionSeg(self.outputs[-1], self.label)
         self.loss_total = self.loss_side * lambda_side + self.loss_fused * lambda_fused

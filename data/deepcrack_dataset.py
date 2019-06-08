@@ -52,7 +52,7 @@ class DeepCrackDataset(BaseDataset):
             lab = cv2.resize(lab, (w, h), interpolation=cv2.INTER_CUBIC)
 
         # binarize segmentation
-        _, lab = cv2.threshold(lab, 127, 1, cv2.THRESH_BINARY)
+        _, lab = cv2.threshold(lab, 127, 255, cv2.THRESH_BINARY)
 
         # apply flip
         if (not self.opt.no_flip) and random.random() > 0.5:
