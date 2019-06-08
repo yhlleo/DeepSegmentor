@@ -3,8 +3,9 @@ import random
 import cv2
 import numpy as np
 from PIL import Image
-from data.base_dataset import BaseDataset, get_params, get_transform
+from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
+import torchvision.transforms.functional as TF
 from data.image_folder import make_dataset
 from data.utils import MaskToTensor
 
@@ -69,9 +70,10 @@ class DeepCrackDataset(BaseDataset):
 
         # apply affine transform
         if self.opt.use_augment:
-            params = self._get_params()
-            img = self._im_trans(img, params)
-            lab = self._im_trans(lab, params)
+            if random.random() > 0.5:
+                angle = random.randint(-45, 45)
+                img = TF.rotate(img, angle)
+                lab = TF.rotate(lab, angle)
 
         # apply the transform to both A and B
         img = self.img_transforms(img)

@@ -69,7 +69,7 @@ class DeepCrackModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.outputs = self.netG(self.image)
 
-        self.label3d = self.label.squeeze(1)
+        self.label3d = (self.label.squeeze(1)-0.5)/0.5
         # for visualization
         self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
         if self.display_sides:

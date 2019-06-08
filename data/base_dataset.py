@@ -7,7 +7,6 @@ import numpy as np
 import torch.utils.data as data
 from PIL import Image
 import torchvision.transforms as transforms
-import torchvision.transforms.functional as TF
 from abc import ABC, abstractmethod
 
 
@@ -59,22 +58,6 @@ class BaseDataset(data.Dataset, ABC):
             a dictionary of data with their names. It ususally contains the data itself and its metadata information.
         """
         pass
-
-    def _get_params(self, scale=0.2, shift=16, shear=8):
-        assert scale>=0, scale
-        assert shift>=0, shift
-        assert shear>=0, shear
-
-        angles = [22.5, 45.0, 67.5, 90.0, 112.5, 135.0, 157.5, 180.0, 0.0, 
-                  -22.5, -45.0, -67.5, -90.0, -112.5, -135.0, -157.5, -180.0]
-        out_angle = random.choice(angles)
-        out_scale = random.uniform(1-scale, 1+scale)
-        shift_x, shift_y = random.randint(-shift, shift), random.randint(-shift, shift)
-        out_shear = random.uniform(-shear, shear)
-        return out_angle, (shift_x, shift_y), out_scale, out_shear
-
-    def _im_trans(self, im, params):
-        return TF.affine(im, *params)
 
 
 def get_params(opt, size):
