@@ -73,7 +73,7 @@ class DeepCrackDataset(BaseDataset):
 
         # apply the transform to both A and B
         img = self.img_transforms(Image.fromarray(img.copy()))
-        lab = self.lab_transform(Image.fromarray(lab.copy())).unsqueeze(0)
+        lab = self.lab_transform(Image.fromarray(lab.copy()))
 
         return {'image': img, 'label': lab, 'A_paths': img_path, 'B_paths': lab_path}
 

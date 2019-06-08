@@ -69,7 +69,7 @@ class DeepCrackModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.outputs = self.netG(self.image)
 
-        self.label3d = (self.label.squeeze(1)-0.5)/0.5
+        self.label4d = (self.label.unsqueeze(1)-0.5)/0.5
         # for visualization
         self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
         if self.display_sides:
@@ -86,9 +86,9 @@ class DeepCrackModel(BaseModel):
 
         self.loss_side = 0.0
         for out, w in zip(self.outputs[:-1], self.weight_side):
-            self.loss_side += self.criterionSeg(out, self.label3d) * w
+            self.loss_side += self.criterionSeg(out, self.label) * w
 
-        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label3d)
+        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label)
         self.loss_total = self.loss_side * lambda_side + self.loss_fused * lambda_fused
         self.loss_total.backward()
 
