@@ -3,6 +3,7 @@
 import torch
 import cv2
 import numpy as np
+import random
 
 class MaskToTensor(object):
     def __call__(self, img):
