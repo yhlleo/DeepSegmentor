@@ -71,13 +71,13 @@ class DeepCrackModel(BaseModel):
 
         self.label3d = self.label.squeeze(1)
         # for visualization
-        self.fused = (self.softmax(self.outputs[-1])[:,1].detach()-0.5)/0.5
+        self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
         if self.display_sides:
-            self.side1 = (self.softmax(self.outputs[0])[:,1].detach()-0.5)/0.5
-            self.side2 = (self.softmax(self.outputs[1])[:,1].detach()-0.5)/0.5
-            self.side3 = (self.softmax(self.outputs[2])[:,1].detach()-0.5)/0.5
-            self.side4 = (self.softmax(self.outputs[3])[:,1].detach()-0.5)/0.5
-            self.side5 = (self.softmax(self.outputs[4])[:,1].detach()-0.5)/0.5
+            self.side1 = (self.softmax(self.outputs[0])[:,1].detach().unsqueeze(1)-0.5)/0.5
+            self.side2 = (self.softmax(self.outputs[1])[:,1].detach().unsqueeze(1)-0.5)/0.5
+            self.side3 = (self.softmax(self.outputs[2])[:,1].detach().unsqueeze(1)-0.5)/0.5
+            self.side4 = (self.softmax(self.outputs[3])[:,1].detach().unsqueeze(1)-0.5)/0.5
+            self.side5 = (self.softmax(self.outputs[4])[:,1].detach().unsqueeze(1)-0.5)/0.5
 
     def backward(self):
         """Calculate the loss"""
