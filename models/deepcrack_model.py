@@ -27,7 +27,7 @@ class DeepCrackModel(BaseModel):
         self.loss_names = ['side', 'fused', 'total']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.display_sides = opt.display_sides
-        self.visual_names = ['image', 'label', 'fused']
+        self.visual_names = ['image', 'label3d', 'fused']
         if self.display_sides:
             self.visual_names += ['side1', 'side2', 'side3', 'side4', 'side5']
         # specify the models you want to save to the disk. 
@@ -69,6 +69,7 @@ class DeepCrackModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.outputs = self.netG(self.image)
 
+        self.label3d = self.label.squeeze(1)
         # for visualization
         self.fused = (self.softmax(self.outputs[-1])[:,1].detach()-0.5)/0.5
         if self.display_sides:
@@ -85,9 +86,9 @@ class DeepCrackModel(BaseModel):
 
         self.loss_side = 0.0
         for out, w in zip(self.outputs[:-1], self.weight_side):
-            self.loss_side += self.criterionSeg(out, self.label) * w
+            self.loss_side += self.criterionSeg(out, self.label3d) * w
 
-        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label)
+        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label3d)
         self.loss_total = self.loss_side * lambda_side + self.loss_fused * lambda_fused
         self.loss_total.backward()
 
