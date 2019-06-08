@@ -1,9 +1,10 @@
+GPU_IDS=$1
+
 DATAROOT=./datasets/DeepCrack
 NAME=deepcrack
 MODEL=deepcrack
 DATASET_MODE=deepcrack
 
-GPU_IDS=1
 BATCH_SIZE=4
 NUM_CLASSES=2
 
