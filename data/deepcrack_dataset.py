@@ -8,8 +8,7 @@ from data.image_folder import make_dataset
 from data.utils import MaskToTensor
 
 class DeepCrackDataset(BaseDataset):
-    """A dataset class for crack dataset.
-    """
+    """A dataset class for crack dataset."""
 
     def __init__(self, opt):
         """Initialize this dataset class.
@@ -19,8 +18,8 @@ class DeepCrackDataset(BaseDataset):
         """
         BaseDataset.__init__(self, opt)
 
-        self.img_paths = make_dataset(os.path.join(self.data_dir, '{}_img'.format(opt.phase)))
-        self.lab_dir = os.path.join(self.data_dir, '{}_lab'.format(opt.phase))
+        self.img_paths = make_dataset(os.path.join(self.dataroot, '{}_img'.format(opt.phase)))
+        self.lab_dir = os.path.join(self.dataroot, '{}_lab'.format(opt.phase))
 
         self.img_transforms = transforms.Compose([transforms.ToTensor(),
                                                   transforms.Normalize((0.5, 0.5, 0.5),
@@ -34,8 +33,8 @@ class DeepCrackDataset(BaseDataset):
             index - - a random integer for data indexing
 
         Returns a dictionary that contains A, B, A_paths and B_paths
-            A (tensor) - - an image in the input domain
-            B (tensor) - - its corresponding image in the target domain
+            A (tensor) - - an image
+            B (tensor) - - its corresponding segmentation
             A_paths (str) - - image paths
             B_paths (str) - - image paths (same as A_paths)
         """

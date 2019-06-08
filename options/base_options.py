@@ -54,6 +54,12 @@ class BaseOptions():
         parser.add_argument('--load_iter', type=int, default='0', help='which iteration to load? if load_iter > 0, the code will load models by iter_[load_iter]; otherwise, the code will load models by [epoch]')
         parser.add_argument('--verbose', action='store_true', help='if specified, print more debugging information')
         parser.add_argument('--suffix', default='', type=str, help='customized suffix: opt.name = opt.name + suffix: e.g., {model}_{netG}_size{load_size}')
+        
+        # for deepcrack
+        parser.add_argument('--load_width', type=int, default=0, help='load image width')
+        parser.add_argument('--load_height', type=int, default=0, help='load image height')
+        parser.add_argument('--use_augment', type=int, default=1, help='using data augmentation for training')
+        parser.add_argument('--display_sides', type=int, default=1, help='displaying the side output results')
         self.initialized = True
         return parser
 
