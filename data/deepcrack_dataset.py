@@ -71,9 +71,11 @@ class DeepCrackDataset(BaseDataset):
                 img = affine_transform(img, angle, scale, shift, w, h)
                 lab = affine_transform(lab, angle, scale, shift, w, h)
 
+        _, lab = cv2.threshold(lab, 127, 1, cv2.THRESH_BINARY)
+
         # apply the transform to both A and B
         img = self.img_transforms(Image.fromarray(img.copy()))
-        lab = self.lab_transform(Image.fromarray(lab.copy()))
+        lab = self.lab_transform(lab.copy()).unsqueeze(0)
 
         return {'image': img, 'label': lab, 'A_paths': img_path, 'B_paths': lab_path}
 
