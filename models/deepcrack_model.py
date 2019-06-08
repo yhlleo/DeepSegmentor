@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 import itertools
 from .base_model import BaseModel
 from .deepcrack_networks import define_deepcrack
