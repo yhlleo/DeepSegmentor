@@ -7,7 +7,7 @@ from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
 from data.image_folder import make_dataset
-from data.utils import MaskToTensor
+from data.utils import MaskToTensor, get_params, affine_transform
 
 class DeepCrackDataset(BaseDataset):
     """A dataset class for crack dataset."""
@@ -62,22 +62,18 @@ class DeepCrackDataset(BaseDataset):
                 lab = np.fliplr(lab)
             else:
                 img = np.flipud(img)
-                lab = np.flipud(lab)                
-
-        # transfer to Image format
-        img = Image.fromarray(img.copy())
-        lab = Image.fromarray(lab.copy())
+                lab = np.flipud(lab)
 
         # apply affine transform
         if self.opt.use_augment:
             if random.random() > 0.5:
-                angle = random.randint(-45, 45)
-                img = TF.rotate(img, angle)
-                lab = TF.rotate(lab, angle)
+                angle, scale, shift = get_params()
+                img = affine_transform(img, angle, scale, shift, w, h)
+                lab = affine_transform(lab, angle, scale, shift, w, h)
 
         # apply the transform to both A and B
-        img = self.img_transforms(img)
-        lab = self.lab_transform(lab).unsqueeze(0)
+        img = self.img_transforms(Image.fromarray(img.copy()))
+        lab = self.lab_transform(Image.fromarray(lab.copy())).unsqueeze(0)
 
         return {'image': img, 'label': lab, 'A_paths': img_path, 'B_paths': lab_path}
 
