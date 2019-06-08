@@ -67,7 +67,7 @@ class DeepCrackModel(BaseModel):
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
-        self.outputs = self.netG_A(self.image)
+        self.outputs = self.netG(self.image)
 
         # for visualization
         self.fused = (self.softmax(self.outputs[-1])[:,1].detach()-0.5)/0.5
