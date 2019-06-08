@@ -1,5 +1,5 @@
 # DeepSegmentor
-A Pytorch implementation of DeepCrack and RoadNet.
+A Pytorch implementation of DeepCrack and RoadNet projects.
 
 ## Datasets
 
@@ -18,7 +18,15 @@ conda env create -f environment.yml
 
 Download a dataset and copy it into the folder `datasets`, you can use our provided data loading module or rewrite new ones.
 
+//TODO
+
 ## Testing
+
+//TODO
+
+## Evaluation
+
+//TODO
 
 ## References
 
