@@ -70,13 +70,13 @@ class DeepCrackModel(BaseModel):
         self.outputs = self.netG(self.image)
 
         # for visualization
-        self.fused = (self.softmax(self.outputs[-1])[0,1].detach()-0.5)/0.5
+        self.fused = (self.softmax(self.outputs[-1])[:,1].detach()-0.5)/0.5
         if self.display_sides:
-            self.side1 = (self.softmax(self.outputs[0])[0,1].detach()-0.5)/0.5
-            self.side2 = (self.softmax(self.outputs[1])[0,1].detach()-0.5)/0.5
-            self.side3 = (self.softmax(self.outputs[2])[0,1].detach()-0.5)/0.5
-            self.side4 = (self.softmax(self.outputs[3])[0,1].detach()-0.5)/0.5
-            self.side5 = (self.softmax(self.outputs[4])[0,1].detach()-0.5)/0.5
+            self.side1 = (self.softmax(self.outputs[0])[:,1].detach()-0.5)/0.5
+            self.side2 = (self.softmax(self.outputs[1])[:,1].detach()-0.5)/0.5
+            self.side3 = (self.softmax(self.outputs[2])[:,1].detach()-0.5)/0.5
+            self.side4 = (self.softmax(self.outputs[3])[:,1].detach()-0.5)/0.5
+            self.side5 = (self.softmax(self.outputs[4])[:,1].detach()-0.5)/0.5
 
     def backward(self):
         """Calculate the loss"""
