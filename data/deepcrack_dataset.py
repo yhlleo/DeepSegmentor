@@ -1,6 +1,7 @@
 import os.path
 import random
 import cv2
+import numpy as np
 from PIL import Image
 from data.base_dataset import BaseDataset, get_params, get_transform
 import torchvision.transforms as transforms
