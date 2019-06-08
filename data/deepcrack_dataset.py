@@ -40,11 +40,11 @@ class DeepCrackDataset(BaseDataset):
         """
         # read a image given a random integer index
         img_path = self.img_paths[index]
-        img = cv2.imread(img_path, cv2.IMERAD_UNCHANGED)
+        img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         lab_path = os.path.join(self.lab_dir, os.path.basename(img_path).split('.')[0]+'.png')
-        lab = cv2.imread(lab_path, cv2.IMERAD_UNCHANGED)
+        lab = cv2.imread(lab_path, cv2.IMREAD_UNCHANGED)
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
             img = cv2.resize(img, (w, h), interpolation=cv2.INTER_CUBIC)
