@@ -34,7 +34,7 @@ class DeepCrackModel(BaseModel):
 
         # define networks 
         self.netG = deepcrack.define_deepcrack(opt.input_nc, 
-                                               opt.output_nc, 
+                                               opt.num_classes, 
                                                opt.ngf, 
                                                opt.norm,
                                                opt.init_type, 
