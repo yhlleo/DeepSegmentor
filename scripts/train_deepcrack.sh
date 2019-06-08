@@ -7,6 +7,8 @@ DATASET_MODE=deepcrack
 
 BATCH_SIZE=4
 NUM_CLASSES=2
+LOAD_WIDTH=544
+LOAD_HEIGHT=384
 
 NORM=batch
 NITER=200
@@ -24,4 +26,6 @@ python3.5 train.py \
   --num_classes ${NUM_CLASSES} \
   --norm ${NORM} \
   --lr_decay_iters 40 \
-  --lr_policy step
+  --lr_policy step \
+  --load_width ${LOAD_WIDTH} \
+  --load_height ${LOAD_HEIGHT}
