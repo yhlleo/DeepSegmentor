@@ -22,4 +22,4 @@ python3.5 test.py \
   --norm ${NORM} \
   --num_test ${NUM_TEST}\
   --use_augment 0 \
-  --display_sides 0
+  --display_sides 1
