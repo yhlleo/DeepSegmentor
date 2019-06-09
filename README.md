@@ -41,6 +41,9 @@ sh ./scripts/train_deepcrack.sh <gpu_id>
 ```
 sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
+
+[[See examples >>>]](./figures/deepcrack/index.html)
+
  - Road Detection
 
 //TODO
