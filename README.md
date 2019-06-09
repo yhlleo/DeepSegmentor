@@ -34,10 +34,10 @@ sh ./scripts/train_deepcrack.sh <gpu_id>
 
 We provide our pretrained models here (TODO):
 
-|Model|Link|
-|:----|:----|
-|DeepCrack|[[link]](./)|
-|RoadNet|[[link]](./)|
+|Model|Google Drive| BaiduYun|
+|:----|:----:|:----:|
+|DeepCrack|[[link]](./)|[[link]](./)|
+|RoadNet|[[link]](./)|[[link]](./)|
 
 //TODO
 
