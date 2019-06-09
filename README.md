@@ -47,7 +47,7 @@ sh ./scripts/test_deepcrack.sh
 
 ### 6.Evaluation
 
- - Metrics
+ - Metrics (appeared in our papers):
 
  |Metric|Description|Usage|
  |:----:|:-----|:----:|
@@ -66,7 +66,7 @@ sh ./scripts/test_deepcrack.sh
 
  **Note**: Note that if you want to apply the standard non-maximum suppression (NMS) for edge/centerline thinning. Please see more details in [Piotr's Structured Forest matlab toolbox](https://github.com/pdollar/edges) or some helper functions provided in the [hed/eval](https://github.com/s9xie/hed_release-deprecated/tree/master/examples/eval).
 
- - Eval 
+ - Evaluation
 
 //TODO
 
