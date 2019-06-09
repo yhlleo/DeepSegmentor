@@ -32,7 +32,7 @@ class RoadNet(nn.Module):
         self.segment_conv4 = nn.Sequential(*self._conv_block(ngf*4, ngf*8, norm_layer, use_selu, num_block=3))
         self.side_segment_conv4 = nn.Conv2d(ngf*8, out_nc, kernel_size=1, stride=1, bias=False)
 
-        self.segment_conv5 = nn.Sequential(*self._conv_block(ngf*4, ngf*8, norm_layer, use_selu, num_block=3))
+        self.segment_conv5 = nn.Sequential(*self._conv_block(ngf*8, ngf*8, norm_layer, use_selu, num_block=3))
         self.side_segment_conv5 = nn.Conv2d(ngf*8, out_nc, kernel_size=1, stride=1, bias=False)
 
         self.fuse_segment_conv = nn.Conv2d(out_nc*5, out_nc, kernel_size=1, stride=1, bias=False)
