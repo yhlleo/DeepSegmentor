@@ -28,7 +28,7 @@ Download a dataset and copy it into the folder `datasets`, you can use our provi
  - Crack Detection
 
 ```
-sh ./scripts/train_deepcrack.sh
+sh ./scripts/train_deepcrack.sh <gpu_id>
 ```
  - Road Detection
 
@@ -39,7 +39,7 @@ sh ./scripts/train_deepcrack.sh
  - Crack Detection
 
 ```
-sh ./scripts/test_deepcrack.sh
+sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
  - Road Detection
 
