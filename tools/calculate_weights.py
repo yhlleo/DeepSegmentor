@@ -35,6 +35,11 @@ def calculate_weights(im_path):
     return get_weights(labels_dict)
 
 def reverse_weight(w):
+    """
+    Median Frequency Balancing: alpha_c = median_freq/freq(c).
+    median_freq is the median of these frequencies 
+    freq(c) is the number of pixles of class c divided by the total number of pixels in images where c is present
+    """
     assert len(w) > 0, "Expected a non-empty weight dict."
     values = [w[k] for k in w]
     if len(w) == 1:
@@ -42,7 +47,7 @@ def reverse_weight(w):
     elif len(w) == 2:
         value = min(values)
     else:
-        # Median Frequency Balancing: alpha_c = median_freq/freq(c).
+        # Median Frequency Balancing
         value = statistics.median(values)
     for k in w:
         w[k] = value/(w[k]+1e-10)
