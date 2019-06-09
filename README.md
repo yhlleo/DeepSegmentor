@@ -64,7 +64,7 @@ sh ./scripts/test_deepcrack.sh
  |OIS|the aggregate F-measure on the dataset for the best scale in each image|edge,centerline|
  |AP|the average precision on the full recall range|edge,centerline|
 
- **Note**: Note that if you want to apply the standard non-maximum suppression (NMS) for edge/centerline thinning. Please see more details in [Piotr's Structured Forest matlab toolbox](https://github.com/pdollar/edges) or some helper functions provided in the [hed/eval](https://github.com/s9xie/hed_release-deprecated/tree/master/examples/eval).
+ **Note**: If you want to apply the standard non-maximum suppression (NMS) for edge/centerline thinning. Please see more details in [Piotr's Structured Forest matlab toolbox](https://github.com/pdollar/edges) or some helper functions provided in the [hed/eval](https://github.com/s9xie/hed_release-deprecated/tree/master/examples/eval).
 
  - Evaluation
 
