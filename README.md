@@ -18,9 +18,23 @@ conda env create -f environment.yml
 
 Download a dataset and copy it into the folder `datasets`, you can use our provided data loading module or rewrite new ones.
 
+ - Crack Detection
+
+```
+sh ./scripts/train_deepcrack.sh
+```
+ - Road Detection
+
 //TODO
 
 ## 4.Testing
+
+ - Crack Detection
+
+```
+sh ./scripts/test_deepcrack.sh
+```
+ - Road Detection
 
 //TODO
 
