@@ -1,12 +1,12 @@
 # DeepSegmentor
 A Pytorch implementation of DeepCrack and RoadNet projects.
 
-## 1.Datasets
+### 1.Datasets
 
  - [Crack Detection Dataset](https://github.com/yhlleo/DeepCrack)
  - [Multi-task Road Detection Dataset](https://github.com/yhlleo/RoadNet)
 
-## 2.Installation
+### 2.Installation
 
 We provide an user-friendly configuring method via [Conda](https://docs.conda.io/en/latest/) system, and you can create a new Conda environment using the command:
 
@@ -14,14 +14,14 @@ We provide an user-friendly configuring method via [Conda](https://docs.conda.io
 conda env create -f environment.yml
 ```
 
-## 3.Balancing Weights
+### 3.Balancing Weights
 
 We follow the [Median Frequency Balancing](https://arxiv.org/pdf/1411.4734.pdf) method, using the command:
 ```
 python3 ./tools/calculate_weights.py --data_path <path_to_segmentation>
 ```
 
-## 4.Training
+### 4.Training
 
 Download a dataset and copy it into the folder `datasets`, you can use our provided data loading module or rewrite new ones.
 
@@ -34,7 +34,7 @@ sh ./scripts/train_deepcrack.sh
 
 //TODO
 
-## 5.Testing
+### 5.Testing
 
  - Crack Detection
 
@@ -45,11 +45,11 @@ sh ./scripts/test_deepcrack.sh
 
 //TODO
 
-## 6.Evaluation
+### 6.Evaluation
 
 //TODO
 
-## References
+### References
 
 If you take use of our datasets or code, please cite our papers:
 
