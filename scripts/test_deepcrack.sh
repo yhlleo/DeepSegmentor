@@ -16,8 +16,6 @@ python3.5 test.py \
   --model ${MODEL} \
   --dataset_mode ${DATASET_MODE} \
   --gpu_ids ${GPU_IDS} \
-  --niter ${NITER} \
-  --niter_decay ${NITER_DECAY} \
   --batch_size ${BATCH_SIZE} \
   --num_classes ${NUM_CLASSES} \
   --norm ${NORM} \
