@@ -12,7 +12,7 @@ LOAD_HEIGHT=384
 
 NORM=batch
 NITER=200
-NITER_DECAY=100
+NITER_DECAY=200
 
 python3.5 train.py \
   --dataroot ${DATAROOT} \
