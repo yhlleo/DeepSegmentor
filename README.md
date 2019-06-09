@@ -73,6 +73,10 @@ sh ./scripts/test_deepcrack.sh <gpu_id>
 
 //TODO
 
+### Acknowledgment
+
+This code is based on the [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix). Thanks to the contributors of this project.
+
 ### References
 
 If you take use of our datasets or code, please cite our papers:
