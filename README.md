@@ -50,7 +50,7 @@ sh ./scripts/test_deepcrack.sh
  - Metrics
 
  |Metric|Description|Usage|
- |:----|:-----|:----|
+ |:----:|:-----|:----:|
  |P|Precision, `TP/(TP+FP)`|segmentation|
  |R|Recall, `TP/(TP+FN)`|segmentation|
  |F|F-score, `2PR/(P+R)`|segmentation|
