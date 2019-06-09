@@ -1,3 +1,12 @@
+#! -*- coding: utf-8 -*-
+# Author: Yahui Liu <yahui.liu@unitn.it>
+
+"""
+Reference:
+
+DeepCrack: A deep hierarchical feature learning architecture for crack segmentation.
+  https://www.sciencedirect.com/science/article/pii/S0925231219300566
+"""
 
 import torch
 import torch.nn as nn
@@ -9,58 +18,19 @@ class DeepCrackNet(nn.Module):
         super(DeepCrackNet, self).__init__()
 
         norm_layer = get_norm_layer(norm_type=norm)
-        conv1 = [nn.Conv2d(in_nc, ngf, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf, ngf, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf),
-                 nn.ReLU(inplace=True)]
-        self.conv1 = nn.Sequential(*conv1)
+        self.conv1 = nn.Sequential(*self._conv_block(in_nc, ngf, norm_layer, num_block=2))
         self.side_conv1 = nn.Conv2d(ngf, num_classes, kernel_size=1, stride=1, bias=False)
 
-        conv2 = [nn.Conv2d(ngf, ngf*2, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*2),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*2, ngf*2, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*2),
-                 nn.ReLU(inplace=True)]
-        self.conv2 = nn.Sequential(*conv2)
+        self.conv2 = nn.Sequential(*self._conv_block(ngf, ngf*2, norm_layer, num_block=2))
         self.side_conv2 = nn.Conv2d(ngf*2, num_classes, kernel_size=1, stride=1, bias=False)
 
-        conv3 = [nn.Conv2d(ngf*2, ngf*4, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*4),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*4, ngf*4, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*4),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*4, ngf*4, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*4),
-                 nn.ReLU(inplace=True)]
-        self.conv3 = nn.Sequential(*conv3)
+        self.conv3 = nn.Sequential(*self._conv_block(ngf*2, ngf*4, norm_layer, num_block=3))
         self.side_conv3 = nn.Conv2d(ngf*4, num_classes, kernel_size=1, stride=1, bias=False)
 
-        conv4 = [nn.Conv2d(ngf*4, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*8, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*8, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True)]
-        self.conv4 = nn.Sequential(*conv4)
+        self.conv4 = nn.Sequential(*self._conv_block(ngf*4, ngf*8, norm_layer, num_block=3))
         self.side_conv4 = nn.Conv2d(ngf*8, num_classes, kernel_size=1, stride=1, bias=False)
 
-        conv5 = [nn.Conv2d(ngf*8, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*8, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True),
-                 nn.Conv2d(ngf*8, ngf*8, kernel_size=3, stride=1, padding=1, bias=False),
-                 norm_layer(ngf*8),
-                 nn.ReLU(inplace=True)]
-        self.conv5 = nn.Sequential(*conv5)
+        self.conv5 = nn.Sequential(*self._conv_block(ngf*4, ngf*8, norm_layer, num_block=3))
         self.side_conv5 = nn.Conv2d(ngf*8, num_classes, kernel_size=1, stride=1, bias=False)
 
         self.fuse_conv = nn.Conv2d(num_classes*5, num_classes, kernel_size=1, stride=1, bias=False)
@@ -71,8 +41,18 @@ class DeepCrackNet(nn.Module):
         self.up8 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=True)
         self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
 
+    def _conv_block(self, in_nc, out_nc, norm_layer, num_block=2, kernel_size=3, 
+        stride=1, padding=1, bias=False):
+        conv = []
+        for i in range(num_block):
+            cur_in_nc = in_nc if i == 0 else out_nc
+            conv += [nn.Conv2d(cur_in_nc, out_nc, kernel_size=kernel_size, stride=stride, 
+                               padding=padding, bias=bias),
+                     norm_layer(out_nc),
+                     nn.ReLU(True)]
+        return conv
+
     def forward(self, x):
-        h,w = x.size()[2:]
         # main stream features
         conv1 = self.conv1(x)
         conv2 = self.conv2(self.maxpool(conv1))
