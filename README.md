@@ -16,7 +16,7 @@ conda env create -f environment.yml
 
 ## 3.Balancing Weights
 
-We follow the Median Frequency Balancing method, using the command:
+We follow the [Median Frequency Balancing](https://arxiv.org/pdf/1411.4734.pdf) method, using the command:
 ```
 python3 ./tools/calculate_weights.py --data_path <path_to_segmentation>
 ```
