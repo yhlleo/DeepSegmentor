@@ -60,9 +60,11 @@ sh ./scripts/test_deepcrack.sh
  |G|Global accuracy, measures the percentage of the pixels correctly predicted|segmentation|
  |C|Class average accuracy, means the predictive accuracy over all classes|segmentation|
  |I/U|Mean intersection over union|segmentation|
- |ODS|the best F-measure on the dataset for a fixed scale|edge,centerline,boundary|
- |OIS|the aggregate F-measure on the dataset for the best scale in each image|edge,centerline,boundary|
- |AP|the average precision on the full recall range|edge,centerline,boundary|
+ |ODS|the best F-measure on the dataset for a fixed scale|edge,centerline|
+ |OIS|the aggregate F-measure on the dataset for the best scale in each image|edge,centerline|
+ |AP|the average precision on the full recall range|edge,centerline|
+
+ **Note**: Note that if you want to apply the standard non-maximum suppression (NMS) for edge/centerline thinning. Please see more details in [Piotr's Structured Forest matlab toolbox](https://github.com/pdollar/edges) or some helper functions provided in the [hed/eval](https://github.com/s9xie/hed_release-deprecated/tree/master/examples/eval).
 
  - Eval 
 
