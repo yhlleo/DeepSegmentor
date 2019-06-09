@@ -9,7 +9,7 @@ BATCH_SIZE=1
 NORM=batch
 
 NUM_CLASSES=2
-NUM_TEST=10000
+NUM_TEST=10
 
 python3.5 test.py \
   --dataroot ${DATAROOT} \
