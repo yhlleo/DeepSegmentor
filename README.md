@@ -47,6 +47,25 @@ sh ./scripts/test_deepcrack.sh
 
 ### 6.Evaluation
 
+ - Metrics
+
+ |Metric|Description|Usage|
+ |:----|:-----|:----|
+ |P|Precision, `TP/(TP+FP)`|segmentation|
+ |R|Recall, `TP/(TP+FN)`|segmentation|
+ |F|F-score, `2PR/(P+R)`|segmentation|
+ |TPR|True Positive Rate, `TP/(TP+FN)`|segmentation|
+ |FPR|False Positive Rate, `FP/(FP+TN)`|segmentation|
+ |AUC|The Area Under the ROC Curve|segmentation|
+ |G|Global accuracy, measures the percentage of the pixels correctly predicted|segmentation|
+ |C|Class average accuracy, means the predictive accuracy over all classes|segmentation|
+ |I/U|Mean intersection over union|segmentation|
+ |ODS|the best F-measure on the dataset for a fixed scale|edge,centerline,boundary|
+ |OIS|the aggregate F-measure on the dataset for the best scale in each image|edge,centerline,boundary|
+ |AP|the average precision on the full recall range|edge,centerline,boundary|
+
+ - Eval 
+
 //TODO
 
 ### References
