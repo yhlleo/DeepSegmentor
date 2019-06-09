@@ -5,16 +5,12 @@ NAME=deepcrack
 MODEL=deepcrack
 DATASET_MODE=deepcrack
 
-BATCH_SIZE=4
-NUM_CLASSES=2
-LOAD_WIDTH=544
-LOAD_HEIGHT=384
-
+BATCH_SIZE=1
 NORM=batch
-NITER=200
-NITER_DECAY=100
 
-python3.5 train.py \
+NUM_CLASSES=2
+
+python3.5 test.py \
   --dataroot ${DATAROOT} \
   --name ${NAME} \
   --model ${MODEL} \
@@ -25,8 +21,4 @@ python3.5 train.py \
   --batch_size ${BATCH_SIZE} \
   --num_classes ${NUM_CLASSES} \
   --norm ${NORM} \
-  --lr_decay_iters 40 \
-  --lr_policy step \
-  --load_width ${LOAD_WIDTH} \
-  --load_height ${LOAD_HEIGHT} \
-  --no_flip 0
+  --use_augment 0
