@@ -19,4 +19,5 @@ python3.5 test.py \
   --batch_size ${BATCH_SIZE} \
   --num_classes ${NUM_CLASSES} \
   --norm ${NORM} \
-  --use_augment 0
+  --use_augment 0 \
+  --display_sides 0
