@@ -48,8 +48,11 @@ We provide our pretrained models here (TODO):
 ```
 sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
+|Image|Ground Truth|fused|side1|side2|side3|side4|side5|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----|
+|![](./figures/deepcrack/images/11194_image.png)|![](./figures/deepcrack/images/11194_label_viz.png)|![](./figures/deepcrack/images/11194_fused.png)|![](./figures/deepcrack/images/11194_side1.png)|![](./figures/deepcrack/images/11194_side2.png)|![](./figures/deepcrack/images/11194_side3.png)|![](./figures/deepcrack/images/11194_side4.png)|![](./figures/deepcrack/images/11194_side5.png)|
 
-[[See examples >>>]](./figures/deepcrack.md)
+[[See more examples >>>]](./figures/deepcrack.md)
 
  - Road Detection
 
