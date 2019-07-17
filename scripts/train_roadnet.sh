@@ -1,16 +1,15 @@
 GPU_IDS=$1
 
-DATAROOT=./datasets/DeepCrack
-NAME=deepcrack
-MODEL=deepcrack
-DATASET_MODE=deepcrack
+DATAROOT=./datasets/RoadNet
+NAME=roadnet
+MODEL=roadnet
+DATASET_MODE=roadnet
 
-BATCH_SIZE=4
-NUM_CLASSES=2
-LOAD_WIDTH=544
-LOAD_HEIGHT=384
+BATCH_SIZE=1
+LOAD_WIDTH=512
+LOAD_HEIGHT=512
 
-NORM=batch
+USE_SELU=1
 NITER=200
 NITER_DECAY=200
 
@@ -23,11 +22,11 @@ python3 train.py \
   --niter ${NITER} \
   --niter_decay ${NITER_DECAY} \
   --batch_size ${BATCH_SIZE} \
-  --num_classes ${NUM_CLASSES} \
-  --norm ${NORM} \
+  --use_selu ${USE_SELU} \
   --lr_decay_iters 40 \
   --lr_policy step \
   --load_width ${LOAD_WIDTH} \
   --load_height ${LOAD_HEIGHT} \
   --no_flip 0 \
+  --norm batch \
   --display_id 0

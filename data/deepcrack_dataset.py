@@ -1,3 +1,5 @@
+# Author: Yahui Liu <yahui.liu@unitn.it>
+
 import os.path
 import random
 import cv2

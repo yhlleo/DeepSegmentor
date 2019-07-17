@@ -1,3 +1,5 @@
+# Author: Yahui Liu <yahui.liu@uintn.it>
+
 import torch
 import numpy as np
 import itertools

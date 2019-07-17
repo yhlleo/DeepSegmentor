@@ -1,16 +1,16 @@
+# Author: Yahui Liu <yahui.liu@unitn.it>
+
 import os.path
 import random
 import cv2
-
 from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
 from data.image_folder import make_dataset
 from data.utils import MaskToTensor
 
 class RoadNetDataset(BaseDataset):
-    """A dataset class for crack dataset.
+    """A dataset class for road dataset.
     """
-
     def __init__(self, opt):
         """Initialize this dataset class.
 
@@ -19,13 +19,15 @@ class RoadNetDataset(BaseDataset):
         """
         BaseDataset.__init__(self, opt)
 
-        self.img_paths = glob.glob(os.path.join(self.data_dir, '{}_img'.format(opt.phase), '*.jpg'))
-        self.lab_dir = os.path.join(self.data_dir, '{}_lab'.format(opt.phase))
+        self.img_paths   = glob.glob(os.path.join(self.data_dir, '{}_img'.format(opt.phase), '*.png'))
+        self.segment_dir = os.path.join(self.data_dir, '{}_segment'.format(opt.phase))
+        self.edge_dir    = os.path.join(self.data_dir, '{}_edge'.format(opt.phase))
+        self.centerline_dir = os.path.join(self.data_dir, '{}_centerline'.format(opt.phase))
 
         self.img_transforms = transforms.Compose([transforms.ToTensor(),
                                                   transforms.Normalize((0.5, 0.5, 0.5),
                                                                        (0.5, 0.5, 0.5))])
-        self.lab_transform = MaskToTensor()
+        self.lab_transform  = MaskToTensor()
         
     def __getitem__(self, index):
         """Return a data point and its metadata information.
@@ -41,43 +43,63 @@ class RoadNetDataset(BaseDataset):
         """
         # read a image given a random integer index
         img_path = self.img_paths[index]
-        img = cv2.imread(img_path, cv2.IMERAD_UNCHANGED)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        image    = cv2.imread(img_path, cv2.IMERAD_UNCHANGED)
+        image    = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        lab_path = os.path.join(self.lab_dir, os.path.basename(img_path).split('.')[0]+'.png')
-        lab = cv2.imread(lab_path, cv2.IMERAD_UNCHANGED)
+        segment_path    = os.path.join(self.segment_dir, os.path.basename(img_path))
+        edge_path       = os.path.join(self.edge_dir, os.path.basename(img_path))
+        centerline_path = os.path.join(self.centerline_dir, os.path.basename(img_path))
+
+        segment    = cv2.imread(segment_path, cv2.IMERAD_UNCHANGED)
+        edge       = cv2.imread(edge_path, cv2.IMERAD_UNCHANGED)
+        centerline = cv2.imread(centerline_path, cv2.IMERAD_UNCHANGED)
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
-            img = cv2.resize(img, (w, h), interpolation=cv2.INTER_CUBIC)
-            lab = cv2.resize(lab, (w, h), interpolation=cv2.INTER_CUBIC)
+            image      = cv2.resize(image, (w, h), interpolation=cv2.INTER_CUBIC)
+            segment    = cv2.resize(segment, (w, h), interpolation=cv2.INTER_CUBIC)
+            edge       = cv2.resize(edge, (w, h), interpolation=cv2.INTER_CUBIC)
+            centerline = cv2.resize(centerline, (w, h), interpolation=cv2.INTER_CUBIC)
 
         # binarize segmentation
-        _, lab = cv2.threshold(lab, 127, 1, cv2.THRESH_BINARY)
+        _, segment    = cv2.threshold(segment, 127, 1, cv2.THRESH_BINARY)
+        _, edge       = cv2.threshold(edge, 127, 1, cv2.THRESH_BINARY)
+        _, centerline = cv2.threshold(centerline, 127, 1, cv2.THRESH_BINARY)
 
         # apply flip
         if (not self.opt.no_flip) and random.random() > 0.5:
             if random.random() > 0.5:
-                img = np.fliplr(img)
-                lab = np.fliplr(lab)
+                image      = np.fliplr(image)
+                segment    = np.fliplr(segment)
+                edge       = np.fliplr(edge)
+                centerline = np.fliplr(centerline)
             else:
-                img = np.flipud(img)
-                lab = np.flipud(lab)                
+                image      = np.flipup(image)
+                segment    = np.flipup(segment)
+                edge       = np.flipup(edge)
+                centerline = np.flipup(centerline)
 
         # transfer to Image format
-        img = Image.fromarray(img.copy())
-        lab = Image.fromarray(lab.copy())
+        image      = Image.fromarray(image.copy())
+        segment    = Image.fromarray(segment.copy())
+        edge       = Image.fromarray(edge.copy())
+        centerline = Image.fromarray(centerline.copy())
 
         # apply affine transform
-        if self.use_augment:
-            params = self._get_params()
-            img = self._im_trans(img, params)
-            lab = self._im_trans(lab, params)
+        if self.opt.use_augment:
+            if random.random() > 0.5:
+                angle, scale, shift = get_params()
+                image      = affine_transform(image, angle, scale, shift, w, h)
+                segment    = affine_transform(segment, angle, scale, shift, w, h)
+                edge       = affine_transform(edge, angle, scale, shift, w, h)
+                centerline = affine_transform(centerline, angle, scale, shift, w, h)
 
         # apply the transform to both A and B
-        img = self.img_transforms(img)
-        lab = self.lab_transform(lab)
+        image      = self.img_transforms(image)
+        segment    = self.lab_transform(segment)
+        edge       = self.lab_transform(edge)
+        centerline = self.lab_transform(centerline)
 
-        return {'image': img, 'label': lab, 'A_paths': img_path, 'B_paths': lab_path}
+        return {'image': image, 'segment': segment, 'edge': edge, 'centerline': centerline, 'A_paths': img_path}
 
     def __len__(self):
         """Return the total number of images in the dataset."""
