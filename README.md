@@ -32,11 +32,15 @@ sh ./scripts/train_deepcrack.sh <gpu_id>
 ```
  - Road Detection
 
+ ```
+sh ./scripts/train_roadnet.sh <gpu_id>
+```
+
 We provide our pretrained models here (just for testing):
 
 |Model|Google Drive| BaiduYun|
 |:----|:----:|:----:|
-|DeepCrack|[[x][link]](https://drive.google.com/open?id=1V_Ja1ADhF2uKzr3Z-V-8eXbngvCTZANR)|[[x][link]]()|
+|DeepCrack|[[link]](https://drive.google.com/open?id=1V_Ja1ADhF2uKzr3Z-V-8eXbngvCTZANR)|[[link]]()|
 |RoadNet|[[link]]|[[link]]|
 
 //TODO
@@ -55,6 +59,10 @@ sh ./scripts/test_deepcrack.sh <gpu_id>
 [[See more examples >>>]](./figures/deepcrack.md)
 
  - Road Detection
+
+```
+sh ./scripts/test_roadnet.sh <gpu_id>
+```
 
 //TODO
 
