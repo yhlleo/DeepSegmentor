@@ -88,12 +88,12 @@ class RoadNetModel(BaseModel):
         segment_gt_viz     = (self.segment_gt-0.5)/0.5
         edge_gt_viz        = (self.edge_gt-0.5)/0.5
         centerline_gt_viz = (self.centerline_gt-0.5)/0.5
-        self.label_gt = torch.cat([segment_gt_viz, edge_gt_viz, centerline_gt_viz], dim=1)
+        self.label_gt = torch.cat([centerline_gt_viz, edge_gt_viz, segment_gt_viz], dim=1)
 
         segment_fused      = (torch.sigmoid(self.segments[-1]).detach()-0.5)/0.5
         edge_fused         = (torch.sigmoid(self.edges[-1]).detach()-0.5)/0.5
         centerlines_fused  = (torch.sigmoid(self.centerlines[-1]).detach()-0.5)/0.5
-        self.label_pred = torch.cat([segment_fused, edge_fused, centerlines_fused], dim=1)
+        self.label_pred = torch.cat([centerlines_fused, edge_fused, segment_fused], dim=1)
 
     def backward(self):
         """Calculate the loss"""
@@ -101,17 +101,17 @@ class RoadNetModel(BaseModel):
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
             self.loss_segment += self._class_balanced_sigmoid_cross_entropy(out, self.segment_gt) * w
-        self.loss_segment += self.criterionL2(self.segments[-1], self.segment_gt) * 0.5
+        self.loss_segment += self.criterionL2(torch.sigmoid(self.segments[-1]), self.segment_gt) * 0.5
 
         self.loss_edge = 0.0
         for out, w in zip(self.edges, self.weight_others_side):
             self.loss_edge += self._class_balanced_sigmoid_cross_entropy(out, self.edge_gt) * w
-        self.loss_edge += self.criterionL2(self.edges[-1], self.edge_gt) * 0.5
+        self.loss_edge += self.criterionL2(torch.sigmoid(self.edges[-1]), self.edge_gt) * 0.5
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
             self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerline_gt) * w
-        self.loss_centerline += self.criterionL2(self.centerlines[-1], self.centerline_gt) * 0.5
+        self.loss_centerline += self.criterionL2(torch.sigmoid(self.centerlines[-1]), self.centerline_gt) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline
         self.loss_total.backward()
