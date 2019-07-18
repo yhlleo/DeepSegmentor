@@ -67,10 +67,10 @@ class RoadNetDataset(BaseDataset):
             edge       = cv2.resize(edge, (w, h), interpolation=cv2.INTER_CUBIC)
             centerline = cv2.resize(centerline, (w, h), interpolation=cv2.INTER_CUBIC)
 
-        # binarize segmentation
-        _, segment    = cv2.threshold(segment, 127, 1, cv2.THRESH_BINARY)
-        _, edge       = cv2.threshold(edge, 127, 1, cv2.THRESH_BINARY)
-        _, centerline = cv2.threshold(centerline, 127, 1, cv2.THRESH_BINARY)
+        # binarize annotation maps
+        _, segment    = cv2.threshold(segment, 127, 255, cv2.THRESH_BINARY)
+        _, edge       = cv2.threshold(edge, 127, 255, cv2.THRESH_BINARY)
+        _, centerline = cv2.threshold(centerline, 127, 255, cv2.THRESH_BINARY)
 
         # apply flip
         if (not self.opt.no_flip) and random.random() > 0.5:
@@ -94,11 +94,16 @@ class RoadNetDataset(BaseDataset):
                 edge       = affine_transform(edge, angle, scale, shift, w, h)
                 centerline = affine_transform(centerline, angle, scale, shift, w, h)
 
+        # binarize annotation maps
+        _, segment    = cv2.threshold(segment, 127, 1, cv2.THRESH_BINARY)
+        _, edge       = cv2.threshold(edge, 127, 1, cv2.THRESH_BINARY)
+        _, centerline = cv2.threshold(centerline, 127, 1, cv2.THRESH_BINARY)
+
         # apply the transform to both A and B
         image      = self.img_transforms(Image.fromarray(image.copy()))
-        segment    = self.lab_transform(Image.fromarray(segment.copy()))
-        edge       = self.lab_transform(Image.fromarray(edge.copy()))
-        centerline = self.lab_transform(Image.fromarray(centerline.copy()))
+        segment    = self.lab_transform(segment.copy())
+        edge       = self.lab_transform(edge.copy())
+        centerline = self.lab_transform(centerline.copy())
 
         return {'image': image, 
                 'segment': segment, 
