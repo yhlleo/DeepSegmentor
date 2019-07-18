@@ -70,7 +70,7 @@ class RoadNetModel(BaseModel):
         This function accepts logits rather than predictions, and is more numerically stable than
         :func:`class_balanced_cross_entropy`.
         """
-        y = torch.flatten(label).float()
+        y = label.view(-1).float()
         count_neg = torch.mean(1.0 - y)
         count_pos = torch.mean(y)
         beta = count_neg/(count_neg+count_pos)
