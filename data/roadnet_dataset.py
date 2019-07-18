@@ -20,10 +20,10 @@ class RoadNetDataset(BaseDataset):
         """
         BaseDataset.__init__(self, opt)
 
-        self.img_paths   = glob.glob(os.path.join(self.data_dir, '{}_img'.format(opt.phase), '*.png'))
-        self.segment_dir = os.path.join(self.data_dir, '{}_segment'.format(opt.phase))
-        self.edge_dir    = os.path.join(self.data_dir, '{}_edge'.format(opt.phase))
-        self.centerline_dir = os.path.join(self.data_dir, '{}_centerline'.format(opt.phase))
+        self.img_paths   = glob.glob(os.path.join(self.dataroot, '{}_img'.format(opt.phase), '*.png'))
+        self.segment_dir = os.path.join(self.dataroot, '{}_segment'.format(opt.phase))
+        self.edge_dir    = os.path.join(self.dataroot, '{}_edge'.format(opt.phase))
+        self.centerline_dir = os.path.join(self.dataroot, '{}_centerline'.format(opt.phase))
 
         self.img_transforms = transforms.Compose([transforms.ToTensor(),
                                                   transforms.Normalize((0.5, 0.5, 0.5),
