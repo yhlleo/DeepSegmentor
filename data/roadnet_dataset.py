@@ -10,7 +10,7 @@ from PIL import Image
 from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
 from data.image_folder import make_dataset
-from data.utils import MaskToTensor, get_params, affine_transform
+from data.utils import MaskToTensor, get_params, affine_transform, convert_from_color_annotation
 
 class RoadNetDataset(BaseDataset):
     """A dataset class for road dataset.
@@ -57,20 +57,22 @@ class RoadNetDataset(BaseDataset):
         centerline_path = os.path.join(self.centerline_dir, os.path.basename(img_path))
 
         # load annotation maps and only use the red channel
-        segment    = cv2.imread(segment_path, cv2.IMREAD_UNCHANGED)[:,:,2]
-        edge       = cv2.imread(edge_path, cv2.IMREAD_UNCHANGED)[:,:,2]
-        centerline = cv2.imread(centerline_path, cv2.IMREAD_UNCHANGED)[:,:,2]
+        segment    = cv2.imread(segment_path, cv2.IMREAD_UNCHANGED)
+        edge       = cv2.imread(edge_path, cv2.IMREAD_UNCHANGED)
+        centerline = cv2.imread(centerline_path, cv2.IMREAD_UNCHANGED)
+
+        # from color to gray
+        segment    = convert_from_color_annotation(segment)
+        edge       = convert_from_color_annotation(edge)
+        centerline = convert_from_color_annotation(centerline)
+        
+        # resize
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
             image      = cv2.resize(image, (w, h), interpolation=cv2.INTER_CUBIC)
             segment    = cv2.resize(segment, (w, h), interpolation=cv2.INTER_CUBIC)
             edge       = cv2.resize(edge, (w, h), interpolation=cv2.INTER_CUBIC)
             centerline = cv2.resize(centerline, (w, h), interpolation=cv2.INTER_CUBIC)
-
-        # binarize annotation maps
-        _, segment    = cv2.threshold(segment, 127, 255, cv2.THRESH_BINARY)
-        _, edge       = cv2.threshold(edge, 127, 255, cv2.THRESH_BINARY)
-        _, centerline = cv2.threshold(centerline, 127, 255, cv2.THRESH_BINARY)
 
         # apply flip
         if (not self.opt.no_flip) and random.random() > 0.5:

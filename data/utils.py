@@ -22,4 +22,13 @@ def affine_transform(img, angle, scale, shift, w, h):
     # Translation
     MT = np.float32([[1,0,shift[0]],[0,1,shift[1]]])
     img = cv2.warpAffine(img, MT, (w, h))
-    return img 
+    return img
+
+def convert_from_color_annotation(arr_3d):
+    arr_3d = np.astype('uint8')
+    arr_2d = np.zeros((arr_3d.shape[0], arr_3d.shape[1]), dtype=np.uint8)
+    palette = {(255,255,255): 0, (0,0,255): 255}
+    for c, i in palette.items():
+        m = np.all(arr_3d == np.array(c).reshape(1, 1, 3), axis=2)
+        arr_2d[m] = i
+    return arr_2d
