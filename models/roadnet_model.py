@@ -45,7 +45,7 @@ class RoadNetModel(BaseModel):
 
         if self.isTrain:
             # define loss functions
-            self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
+            self.criterionL2 = torch.nn.MSELoss(reduction='elementwise_mean', reduce=True)
             self.weight_segment_side = [0.5, 0.75, 1.0, 0.75, 0.5, 1.0]
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
