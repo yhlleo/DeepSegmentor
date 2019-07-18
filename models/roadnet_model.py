@@ -86,8 +86,8 @@ class RoadNetModel(BaseModel):
         # for visualization
         segment_gt_viz     = (self.segment_gt.float()-0.5)/0.5
         edge_gt_viz        = (self.edge_gt.float()-0.5)/0.5
-        centerlines_gt_viz = (self.centerlines_gt.float()-0.5)/0.5
-        self.label_gt = torch.cat([segment_gt_viz, edge_gt_viz, centerlines_gt_viz], dim=1)
+        centerline_gt_viz = (self.centerline_gt.float()-0.5)/0.5
+        self.label_gt = torch.cat([segment_gt_viz, edge_gt_viz, centerline_gt_viz], dim=1)
 
         segment_fused      = (F.sigmoid(self.segments[-1])[:,0].detach().unsqueeze(1)-0.5)/0.5
         edge_fused         = (F.sigmoid(self.edges[-1])[:,0].detach().unsqueeze(1)-0.5)/0.5
@@ -109,8 +109,8 @@ class RoadNetModel(BaseModel):
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
-            self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerlines_gt) * w
-        self.loss_centerline += self.criterionL2(self.centerlines[-1], self.centerlines_gt) * 0.5
+            self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerline_gt) * w
+        self.loss_centerline += self.criterionL2(self.centerlines[-1], self.centerline_gt) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline
         self.loss_total.backward()
