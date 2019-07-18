@@ -36,7 +36,8 @@ def crop_info(im_shape, sz=(H,W), step=step):
 
 def imageCrop(im_file, save_path):
     assert os.path.isdir(save_path)
-    fname = os.path.basename(im_file).split('.')[0]
+    # get the image index 
+    fname = im_file.split('/')[-2]
     # load image and calculate cropping information
     im = cv2.imread(im_file, IMG_READ_MODE)
     s = im.shape
