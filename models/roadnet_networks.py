@@ -17,9 +17,8 @@ from .networks import get_norm_layer, init_net
 class SeLU_layer(nn.Module):
     def __init__(self, inplace=False):
         super(SeLU_layer, self).__init__()
-        self.alpha = 1.6732632423543772848170429916717
         self.scale = 1.0507009873554804934193349852946
-        self.elu = nn.ELU(self.alpha, inplace=inplace)
+        self.elu = nn.ELU(alpha=1.6732632423543772848170429916717, inplace=inplace)
 
     def forward(self, x):
         return self.scale*self.elu(x)
