@@ -25,7 +25,7 @@ def affine_transform(img, angle, scale, shift, w, h):
     return img
 
 def convert_from_color_annotation(arr_3d):
-    arr_3d = np.astype('uint8')
+    arr_3d = arr_3d.astype('uint8')
     arr_2d = np.zeros((arr_3d.shape[0], arr_3d.shape[1]), dtype=np.uint8)
     palette = {(255,255,255): 0, (0,0,255): 255}
     for c, i in palette.items():
