@@ -76,7 +76,7 @@ class RoadNetModel(BaseModel):
         beta = count_neg/(count_neg+count_pos)
 
         pos_weight = beta / (1.0 - beta + 1e-6)
-        critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
+        critic = torch.nn.BCEWithLogitsLoss(reduction='elementwise_mean', reduce=True, pos_weight=pos_weight)
         return critic(logits, label)
 
     def forward(self):
