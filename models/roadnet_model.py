@@ -84,14 +84,14 @@ class RoadNetModel(BaseModel):
         self.segments, self.edges, self.centerlines = self.netG(self.image)
 
         # for visualization
-        segment_gt_viz     = (self.segment_gt.float()-0.5)/0.5
-        edge_gt_viz        = (self.edge_gt.float()-0.5)/0.5
-        centerline_gt_viz = (self.centerline_gt.float()-0.5)/0.5
+        segment_gt_viz     = (self.segment_gt-0.5)/0.5
+        edge_gt_viz        = (self.edge_gt-0.5)/0.5
+        centerline_gt_viz = (self.centerline_gt-0.5)/0.5
         self.label_gt = torch.cat([segment_gt_viz, edge_gt_viz, centerline_gt_viz], dim=1)
 
-        segment_fused      = (F.sigmoid(self.segments[-1])[:,0].detach().unsqueeze(1)-0.5)/0.5
-        edge_fused         = (F.sigmoid(self.edges[-1])[:,0].detach().unsqueeze(1)-0.5)/0.5
-        centerlines_fused  = (F.sigmoid(self.centerlines[-1])[:,0].detach().unsqueeze(1)-0.5)/0.5
+        segment_fused      = (torch.sigmoid(self.segments[-1]).detach()-0.5)/0.5
+        edge_fused         = (torch.sigmoid(self.edges[-1]).detach()-0.5)/0.5
+        centerlines_fused  = (torch.sigmoid(self.centerlines)[:,0].detach()-0.5)/0.5
         self.label_pred = torch.cat([segment_fused, edge_fused, centerlines_fused], dim=1)
 
     def backward(self):
