@@ -63,4 +63,5 @@ def imageCrop(im_file, save_path):
                 im_roi, PNG_SAVE_MODE)
 
 if __name__ == '__main__':
+    print(args.image_file)
     imageCrop(args.image_file, args.save_path)
