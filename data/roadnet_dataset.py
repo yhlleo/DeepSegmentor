@@ -5,6 +5,8 @@ import random
 import cv2
 import glob
 import numpy as np
+from PIL import Image
+
 from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
 from data.image_folder import make_dataset
