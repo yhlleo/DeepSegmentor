@@ -60,9 +60,9 @@ class RoadNetModel(BaseModel):
             input (dict): include the data itself and its metadata information.
         """
         self.image          = input['image'].to(self.device)
-        self.segment_gt     = input['segment'].squeeze(1).to(self.device)
-        self.edge_gt        = input['edge'].squeeze(1).to(self.device)
-        self.centerline_gt  = input['centerline'].squeeze(1).to(self.device)
+        self.segment_gt     = input['segment'].to(self.device)
+        self.edge_gt        = input['edge'].to(self.device)
+        self.centerline_gt  = input['centerline'].to(self.device)
         self.image_paths    = input['A_paths']
 
     def _class_balanced_sigmoid_cross_entropy(self, logits, label):
