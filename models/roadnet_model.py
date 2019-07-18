@@ -45,7 +45,7 @@ class RoadNetModel(BaseModel):
 
         if self.isTrain:
             # define loss functions
-            self.criterionL2 = torch.nn.MSELoss(reduction='elementwise_mean', reduce=True)
+            self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
             self.weight_segment_side = [0.5, 0.75, 1.0, 0.75, 0.5, 1.0]
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
@@ -76,7 +76,7 @@ class RoadNetModel(BaseModel):
         beta = count_neg/(count_neg+count_pos)
 
         pos_weight = beta / (1.0 - beta + 1e-6)
-        critic = torch.nn.BCEWithLogitsLoss(reduction='elementwise_mean', reduce=True, pos_weight=pos_weight)
+        critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         return critic(logits, label)
 
     def forward(self):
