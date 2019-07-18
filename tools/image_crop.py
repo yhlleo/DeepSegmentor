@@ -13,7 +13,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--image_file', type=str, default='../datasets/RoadNet/Ottawa-Dataset/1/Ottawa-1.tif', help='/path/to/image')
 parser.add_argument('--save_path', type=str, default='../datasets/RoadNet/train_image')
-parser.add_argument('--step', type=int, default=64, help='64 for training, 256 for testing')
+parser.add_argument('--step', type=int, default=96, help='96 for training, 256 for testing')
 args = parser.parse_args()
 
 IMG_READ_MODE = cv2.IMREAD_UNCHANGED
