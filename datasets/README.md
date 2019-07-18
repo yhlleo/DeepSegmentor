@@ -50,3 +50,9 @@ roadnet
        |__b.png
        |__...
 ```
+
+Example:
+
+|Image|Segment|Edge|Centerline|
+|:----:|:----:|:----:|:----:|
+|![](./demo/image.png)|![](./demo/segment.png)|![](./demo/edge.png)|![](./demo/centerline.png)|
