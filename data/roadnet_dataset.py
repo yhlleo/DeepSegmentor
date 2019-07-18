@@ -80,10 +80,10 @@ class RoadNetDataset(BaseDataset):
                 edge       = np.fliplr(edge)
                 centerline = np.fliplr(centerline)
             else:
-                image      = np.flipup(image)
-                segment    = np.flipup(segment)
-                edge       = np.flipup(edge)
-                centerline = np.flipup(centerline)
+                image      = np.flipud(image)
+                segment    = np.flipud(segment)
+                edge       = np.flipud(edge)
+                centerline = np.flipud(centerline)
 
         # apply affine transform
         if self.opt.use_augment:
