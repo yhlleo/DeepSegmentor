@@ -22,6 +22,7 @@ python3 train.py \
   --niter ${NITER} \
   --niter_decay ${NITER_DECAY} \
   --batch_size ${BATCH_SIZE} \
+  --output_nc 1 \
   --use_selu ${USE_SELU} \
   --lr_decay_iters 40 \
   --lr_policy step \
