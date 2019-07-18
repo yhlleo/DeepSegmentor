@@ -16,8 +16,8 @@ deepcrack
   |    |__b.jpg
   |    |__...
   |__test_lab
-  |    |__b.png
-  |    |__...
+       |__b.png
+       |__...
 ```
 ### RoadNet 
 
@@ -47,6 +47,6 @@ roadnet
   |    |__b.png
   |    |__...
   |__test_centerline
-  |    |__b.png
-  |    |__...
+       |__b.png
+       |__...
 ```
