@@ -6,6 +6,8 @@ A Pytorch implementation of DeepCrack and RoadNet projects.
  - [Crack Detection Dataset](https://github.com/yhlleo/DeepCrack)
  - [Multi-task Road Detection Dataset](https://github.com/yhlleo/RoadNet)
 
+Please download the corresponding dataset and prepare it by following the [guidance](./datasets/README.md). 
+
 ### 2.Installation
 
 We provide an user-friendly configuring method via [Conda](https://docs.conda.io/en/latest/) system, and you can create a new Conda environment using the command:
