@@ -91,7 +91,7 @@ class RoadNetModel(BaseModel):
 
         segment_fused      = (torch.sigmoid(self.segments[-1]).detach()-0.5)/0.5
         edge_fused         = (torch.sigmoid(self.edges[-1]).detach()-0.5)/0.5
-        centerlines_fused  = (torch.sigmoid(self.centerlines)[:,0].detach()-0.5)/0.5
+        centerlines_fused  = (torch.sigmoid(self.centerlines[-1]).detach()-0.5)/0.5
         self.label_pred = torch.cat([segment_fused, edge_fused, centerlines_fused], dim=1)
 
     def backward(self):
