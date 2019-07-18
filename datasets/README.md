@@ -19,6 +19,13 @@ deepcrack
        |__b.png
        |__...
 ```
+
+Example:
+
+|Image|Label|
+|:----:|:----:|
+|![](./demo/crack_image.png)|![](./demo/crack_label.png)|
+
 ### RoadNet 
 
 dataset tree:
