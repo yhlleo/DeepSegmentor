@@ -65,7 +65,7 @@ cd tools
 sh ./crop_loop.sh
 ```
 
-**Note**: please download the dataset and configurate the paths.
+**Note**: please download the dataset and configurate the paths. The cropped images occupy about 20GB of HD space. 
 
 Example:
 
