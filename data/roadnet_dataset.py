@@ -45,7 +45,7 @@ class RoadNetDataset(BaseDataset):
         """
         # read a image given a random integer index
         img_path = self.img_paths[index]
-        image    = cv2.imread(img_path, cv2.IMERAD_UNCHANGED)
+        image    = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
         image    = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         # set paths of annotation maps
@@ -54,9 +54,9 @@ class RoadNetDataset(BaseDataset):
         centerline_path = os.path.join(self.centerline_dir, os.path.basename(img_path))
 
         # load annotation maps and only use the red channel
-        segment    = cv2.imread(segment_path, cv2.IMERAD_UNCHANGED)[:,:,2]
-        edge       = cv2.imread(edge_path, cv2.IMERAD_UNCHANGED)[:,:,2]
-        centerline = cv2.imread(centerline_path, cv2.IMERAD_UNCHANGED)[:,:,2]
+        segment    = cv2.imread(segment_path, cv2.IMREAD_UNCHANGED)[:,:,2]
+        edge       = cv2.imread(edge_path, cv2.IMREAD_UNCHANGED)[:,:,2]
+        centerline = cv2.imread(centerline_path, cv2.IMREAD_UNCHANGED)[:,:,2]
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
             image      = cv2.resize(image, (w, h), interpolation=cv2.INTER_CUBIC)
