@@ -20,7 +20,7 @@ class RoadNetDataset(BaseDataset):
         """
         BaseDataset.__init__(self, opt)
 
-        self.img_paths   = glob.glob(os.path.join(opt.dataroot, '{}_img'.format(opt.phase), '*.png'))
+        self.img_paths   = glob.glob(os.path.join(opt.dataroot, '{}_image'.format(opt.phase), '*.png'))
         self.segment_dir = os.path.join(opt.dataroot, '{}_segment'.format(opt.phase))
         self.edge_dir    = os.path.join(opt.dataroot, '{}_edge'.format(opt.phase))
         self.centerline_dir = os.path.join(opt.dataroot, '{}_centerline'.format(opt.phase))
