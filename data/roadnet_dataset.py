@@ -101,9 +101,9 @@ class RoadNetDataset(BaseDataset):
 
         # apply the transform to both A and B
         image      = self.img_transforms(Image.fromarray(image.copy()))
-        segment    = self.lab_transform(segment.copy()).unsqueeze(0)
-        edge       = self.lab_transform(edge.copy()).unsqueeze(0)
-        centerline = self.lab_transform(centerline.copy()).unsqueeze(0)
+        segment    = self.lab_transform(segment.copy()).unsqueeze(0).float()
+        edge       = self.lab_transform(edge.copy()).unsqueeze(0).float()
+        centerline = self.lab_transform(centerline.copy()).unsqueeze(0).float()
 
         return {'image': image, 
                 'segment': segment, 
