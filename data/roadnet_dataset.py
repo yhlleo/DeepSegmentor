@@ -85,12 +85,6 @@ class RoadNetDataset(BaseDataset):
                 edge       = np.flipup(edge)
                 centerline = np.flipup(centerline)
 
-        # transfer to Image format
-        image      = Image.fromarray(image.copy())
-        segment    = Image.fromarray(segment.copy())
-        edge       = Image.fromarray(edge.copy())
-        centerline = Image.fromarray(centerline.copy())
-
         # apply affine transform
         if self.opt.use_augment:
             if random.random() > 0.5:
@@ -101,10 +95,10 @@ class RoadNetDataset(BaseDataset):
                 centerline = affine_transform(centerline, angle, scale, shift, w, h)
 
         # apply the transform to both A and B
-        image      = self.img_transforms(image)
-        segment    = self.lab_transform(segment)
-        edge       = self.lab_transform(edge)
-        centerline = self.lab_transform(centerline)
+        image      = self.img_transforms(Image.fromarray(image.copy()))
+        segment    = self.lab_transform(Image.fromarray(segment.copy()))
+        edge       = self.lab_transform(Image.fromarray(edge.copy()))
+        centerline = self.lab_transform(Image.fromarray(centerline.copy()))
 
         return {'image': image, 
                 'segment': segment, 
