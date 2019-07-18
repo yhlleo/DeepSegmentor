@@ -35,24 +35,27 @@ class RoadNetDataset(BaseDataset):
         Parameters:
             index - - a random integer for data indexing
 
-        Returns a dictionary that contains A, B, A_paths and B_paths
-            A (tensor) - - an image in the input domain
-            B (tensor) - - its corresponding image in the target domain
+        Returns a dictionary:
+            image (tensor) - - a road image 
+            segment (tensor) - - its corresponding surface segmenation
+            edge (tensor) - - its corresponding edges
+            centerline (tensor) - - its corresponding centerlines
             A_paths (str) - - image paths
-            B_paths (str) - - image paths (same as A_paths)
         """
         # read a image given a random integer index
         img_path = self.img_paths[index]
         image    = cv2.imread(img_path, cv2.IMERAD_UNCHANGED)
         image    = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+        # set paths of annotation maps
         segment_path    = os.path.join(self.segment_dir, os.path.basename(img_path))
         edge_path       = os.path.join(self.edge_dir, os.path.basename(img_path))
         centerline_path = os.path.join(self.centerline_dir, os.path.basename(img_path))
 
-        segment    = cv2.imread(segment_path, cv2.IMERAD_UNCHANGED)
-        edge       = cv2.imread(edge_path, cv2.IMERAD_UNCHANGED)
-        centerline = cv2.imread(centerline_path, cv2.IMERAD_UNCHANGED)
+        # load annotation maps and only use the red channel
+        segment    = cv2.imread(segment_path, cv2.IMERAD_UNCHANGED)[:,:,2]
+        edge       = cv2.imread(edge_path, cv2.IMERAD_UNCHANGED)[:,:,2]
+        centerline = cv2.imread(centerline_path, cv2.IMERAD_UNCHANGED)[:,:,2]
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
             image      = cv2.resize(image, (w, h), interpolation=cv2.INTER_CUBIC)
@@ -99,7 +102,11 @@ class RoadNetDataset(BaseDataset):
         edge       = self.lab_transform(edge)
         centerline = self.lab_transform(centerline)
 
-        return {'image': image, 'segment': segment, 'edge': edge, 'centerline': centerline, 'A_paths': img_path}
+        return {'image': image, 
+                'segment': segment, 
+                'edge': edge, 
+                'centerline': centerline, 
+                'A_paths': img_path}
 
     def __len__(self):
         """Return the total number of images in the dataset."""

@@ -37,8 +37,8 @@ class DeepCrackDataset(BaseDataset):
             index - - a random integer for data indexing
 
         Returns a dictionary that contains A, B, A_paths and B_paths
-            A (tensor) - - an image
-            B (tensor) - - its corresponding segmentation
+            image (tensor) - - an image
+            label (tensor) - - its corresponding segmentation
             A_paths (str) - - image paths
             B_paths (str) - - image paths (same as A_paths)
         """
@@ -52,6 +52,7 @@ class DeepCrackDataset(BaseDataset):
         if len(lab.shape) == 3:
             lab = cv2.cvtColor(lab, cv2.COLOR_BGR2GRAY)
         
+        # adjust the image size
         w, h = self.opt.load_width, self.opt.load_height
         if w > 0 or h > 0:
             img = cv2.resize(img, (w, h), interpolation=cv2.INTER_CUBIC)
