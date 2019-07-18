@@ -58,6 +58,15 @@ roadnet
        |__...
 ```
 
+We provide an automatic cropping tool in `tools` and you can use it by the command lines:
+
+```
+cd tools
+sh ./crop_loop.sh
+```
+
+**Note**: please download the dataset and configurate the paths.
+
 Example:
 
 |Image|Segment|Edge|Centerline|
