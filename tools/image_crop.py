@@ -22,13 +22,13 @@ H, W = 512, 512
 step = args.step
 
 def crop_info(im_shape, sz=(H,W), step=step):
-    new_h = (im_shape[0] - step)/(sz[0] - step)
-    offset_h = (im_shape[0] - step)%(sz[0] - step)
+    new_h = (im_shape[0] - step)/ step
+    offset_h = (im_shape[0] - step)% step
     if offset_h > 0:
         new_h += 1
         offset_h = step - offset_h
-    new_w = (im_shape[1] - step)/(sz[1] - step)
-    offset_w = (im_shape[1] -step)%(sz[1] - step)
+    new_w = (im_shape[1] - step)/ step
+    offset_w = (im_shape[1] -step)% step
     if offset_w > 0:
         new_w += 1
         offset_w = step - offset_w
