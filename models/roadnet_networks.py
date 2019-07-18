@@ -14,6 +14,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .networks import get_norm_layer, init_net
 
+class SeLU_layer(nn.Module):
+    def __init__(self, inplace=False):
+        self.alpha = 1.6732632423543772848170429916717
+        self.scale = 1.0507009873554804934193349852946
+        self.elu = nn.ELU(self.alpha, inplace=inplace)
+
+    def forward(self, x):
+        return self.scale*self.elu(x)
+
 class RoadNet(nn.Module):
     def __init__(self, in_nc, out_nc, ngf, norm='batch', use_selu=True):
         super(RoadNet, self).__init__()
@@ -83,7 +92,7 @@ class RoadNet(nn.Module):
             conv += [nn.Conv2d(cur_in_nc, out_nc, kernel_size=kernel_size, stride=stride, 
                                padding=padding, bias=bias)]
             if use_selu:
-                conv += [nn.SeLU(True)]
+                conv += [SeLU_layer(True)]
             else:
                 conv += [norm_layer(out_nc), nn.ReLU(True)]
         return conv
