@@ -10,7 +10,7 @@ from PIL import Image
 from data.base_dataset import BaseDataset
 import torchvision.transforms as transforms
 from data.image_folder import make_dataset
-from data.utils import MaskToTensor
+from data.utils import MaskToTensor, get_params, affine_transform
 
 class RoadNetDataset(BaseDataset):
     """A dataset class for road dataset.
