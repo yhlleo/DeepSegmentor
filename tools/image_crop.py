@@ -11,7 +11,7 @@ import numpy as np
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--image_file', type=str, default='../datasets/RoadNet/Ottawa/1/Ottawa-1.tif', help='/path/to/image')
+parser.add_argument('--image_file', type=str, default='../datasets/RoadNet/Ottawa-Dataset/1/Ottawa-1.tif', help='/path/to/image')
 parser.add_argument('--save_path', type=str, default='../datasets/RoadNet/train_image')
 parser.add_argument('--step', type=int, default=128, help='128 for training, 256 for testing')
 args = parser.parse_args()
@@ -32,7 +32,7 @@ def crop_info(im_shape, sz=(H,W), step=step):
     if offset_w > 0:
         new_w += 1
         offset_w = step - offset_w
-    return new_h, new_w, offset_h, offset_w
+    return int(new_h), int(new_w), offset_h, offset_w
 
 def imageCrop(im_file, save_path):
     assert os.path.isdir(save_path)
