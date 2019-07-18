@@ -22,12 +22,12 @@ H, W = 512, 512
 step = args.step
 
 def crop_info(im_shape, sz=(H,W), step=step):
-    new_h = (im_shape[0] - step)/ step
-    offset_h = (im_shape[0] - step)% step
+    new_h = (im_shape[0] - step) / step
+    offset_h = (im_shape[0] - step) % step
     if offset_h > 0:
         new_h += 1
         offset_h = step - offset_h
-    new_w = (im_shape[1] - step)/ step
+    new_w = (im_shape[1] - step) / step
     offset_w = (im_shape[1] -step)% step
     if offset_w > 0:
         new_w += 1
@@ -50,11 +50,11 @@ def imageCrop(im_file, save_path):
     # crop and save
     h, w = 0, 0
     for i in range(new_h):
-        h = i * (H - step)
+        h = i * step
         if i == new_h-1:
             h -= offset_h
         for j in range(new_w):
-            w = j * (W - step)
+            w = j * step
             if j == new_w-1:
                 w -= offset_w
             im_roi = im[h:h+H, w:w+W, :]
