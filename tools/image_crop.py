@@ -39,7 +39,6 @@ def imageCrop(im_file, save_path):
     fname = os.path.basename(im_file).split('.')[0]
     # load image and calculate cropping information
     im = cv2.imread(im_file, IMG_READ_MODE)
-    im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     s = im.shape
     new_h, new_w, offset_h, offset_w = crop_info(s)
     # save cropping information
