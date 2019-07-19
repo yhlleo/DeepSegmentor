@@ -71,7 +71,7 @@ class RoadNet(nn.Module):
         self.segment_conv5 = nn.Sequential(*self._conv_block(ngf*8, ngf*8, norm_layer, use_selu, num_block=3))
         self.side_segment_conv5 = nn.Conv2d(ngf*8, out_nc, kernel_size=1, stride=1, bias=False)
 
-        self.fuse_segment_conv = nn.Conv2d(out_nc*5, out_nc, kernel_size=7, stride=1, bias=False)
+        self.fuse_segment_conv = nn.Conv2d(out_nc*5, out_nc, kernel_size=7, stride=1, padding=3, bias=False)
 
         ngf2 = ngf//2
         #------------road edge detection------------#
@@ -87,7 +87,7 @@ class RoadNet(nn.Module):
         self.edge_conv4 = nn.Sequential(*self._conv_block(ngf2*4, ngf2*8, norm_layer, use_selu, num_block=2))
         self.side_edge_conv4 = nn.Conv2d(ngf2*8, out_nc, kernel_size=1, stride=1, bias=False)
 
-        self.fuse_edge_conv = nn.Conv2d(out_nc*4, out_nc, kernel_size=7, stride=1, bias=False)
+        self.fuse_edge_conv = nn.Conv2d(out_nc*4, out_nc, kernel_size=7, stride=1, padding=3, bias=False)
 
         #------------road centerline extraction------------#
         self.centerline_conv1 = nn.Sequential(*self._conv_block(in_nc+out_nc, ngf2, norm_layer, use_selu, num_block=2))
@@ -102,7 +102,7 @@ class RoadNet(nn.Module):
         self.centerline_conv4 = nn.Sequential(*self._conv_block(ngf2*4, ngf2*8, norm_layer, use_selu, num_block=2))
         self.side_centerline_conv4 = nn.Conv2d(ngf2*8, out_nc, kernel_size=1, stride=1, bias=False)
 
-        self.fuse_centerline_conv = nn.Conv2d(out_nc*4, out_nc, kernel_size=7, stride=1, bias=False)
+        self.fuse_centerline_conv = nn.Conv2d(out_nc*4, out_nc, kernel_size=7, stride=1, padding=3, bias=False)
 
         self.maxpool = nn.MaxPool2d(2, stride=2)
 
