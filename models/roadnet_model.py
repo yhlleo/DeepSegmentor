@@ -48,7 +48,7 @@ class RoadNetModel(BaseModel):
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
-            self.optimizer = torch.optim.Adam(self.netG.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
+            self.optimizer = torch.optim.Adam(self.netG.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999), eps=1e-6, weight_decay=2e-5)
             self.optimizers.append(self.optimizer)
 
     def set_input(self, input):
@@ -73,7 +73,7 @@ class RoadNetModel(BaseModel):
         count_pos = torch.sum(y)
         beta = count_neg/(count_neg+count_pos)
 
-        pos_weight = beta / (1.0 - beta + 1e-3)
+        pos_weight = beta / (1.0 - beta + 1e-4)
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         loss = -pos_weight*label*torch.sigmoid(logits).log() - (1-label)*(1-torch.sigmoid(logits)).log()
         loss = torch.mean(loss * (1-beta))
