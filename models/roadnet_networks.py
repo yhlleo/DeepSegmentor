@@ -24,7 +24,7 @@ class SeLU_layer(nn.Module):
         return self.scale*self.elu(x)
 
 class RoadNet(nn.Module):
-    def __init__(self, in_nc, out_nc, ngf, norm='batch', use_selu=True):
+    def __init__(self, in_nc, out_nc, ngf, norm='batch', use_selu=1):
         super(RoadNet, self).__init__()
         norm_layer = get_norm_layer(norm_type=norm)
 
@@ -85,7 +85,7 @@ class RoadNet(nn.Module):
         self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
 
     def _conv_block(self, in_nc, out_nc, norm_layer, use_selu, num_block=2, kernel_size=3, 
-        stride=1, padding=1, bias=False):
+        stride=1, padding=1, bias=True):
         conv = []
         for i in range(num_block):
             cur_in_nc = in_nc if i == 0 else out_nc
@@ -195,8 +195,8 @@ def define_roadnet(in_nc,
                    out_nc, 
                    ngf, 
                    norm='batch',
-                   use_selu=True,
-                   init_type='xavier', 
+                   use_selu=1,
+                   init_type='normal', 
                    init_gain=0.02, 
                    gpu_ids=[]):
     net = RoadNet(in_nc, out_nc, ngf, norm, use_selu)
