@@ -84,24 +84,20 @@ class RoadNetModel(BaseModel):
 
     def backward(self):
         """Calculate the loss"""
-
-        self.loss_segment = 0.0
+        self.loss_segment = torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
         if self.segment_gt.sum() > 0.0: # ignore blank ones
             for out, w in zip(self.segments, self.weight_segment_side):
                 self.loss_segment += self.criterion(out, self.segment_gt) * w
-            self.loss_segment += torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
-        self.loss_edge = 0.0
+        self.loss_edge = torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
         if self.edge_gt.sum() > 0.0:
             for out, w in zip(self.edges, self.weight_others_side):
                 self.loss_edge += self.criterion(out, self.edge_gt) * w
-            self.loss_edge += torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
 
-        self.loss_centerline = 0.0
+        self.loss_centerline = torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
         if self.centerline_gt.sum() > 0.0:
             for out, w in zip(self.centerlines, self.weight_others_side):
                 self.loss_centerline += self.criterion(out, self.centerline_gt) * w
-            self.loss_centerline = torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline
         self.loss_total.backward()
