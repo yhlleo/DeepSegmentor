@@ -77,7 +77,7 @@ class RoadNetModel(BaseModel):
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         loss = -pos_weight*label*torch.sigmoid(logits).log() - (1-label)*(1-torch.sigmoid(logits)).log()
         loss = torch.mean(loss * (1-beta))
-        return torch.where(count_pos==0.0, torch.tensor([0.0]), loss)
+        return torch.where(count_pos==0.0, torch.tensor([0.0]).to(self.device), loss)
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
