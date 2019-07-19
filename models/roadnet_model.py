@@ -33,7 +33,7 @@ class RoadNetModel(BaseModel):
 
         # define networks 
         self.netG = define_roadnet(opt.input_nc, 
-        						   opt.output_nc,
+                                   opt.output_nc,
                                    opt.ngf, 
                                    opt.norm,
                                    opt.use_selu,
