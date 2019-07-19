@@ -73,7 +73,7 @@ class RoadNetModel(BaseModel):
         count_pos = torch.sum(y)
         beta = count_neg/(count_neg+count_pos)
 
-        pos_weight = beta / (1.0 - beta + 1e-4)
+        pos_weight = beta / (1.0 - beta + 1e-6)
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         sigmoid_logits = torch.sigmoid(logits)
         loss = -pos_weight*label*sigmoid_logits.log()-(1-label)*(1-sigmoid_logits).log()
@@ -90,9 +90,9 @@ class RoadNetModel(BaseModel):
         centerline_gt_viz = (self.centerline_gt-0.5)/0.5
         self.label_gt = torch.cat([centerline_gt_viz, edge_gt_viz, segment_gt_viz], dim=1)
 
-        segment_fused      = (torch.sigmoid(self.segments[-1]).detach()-0.5)/0.5
-        edge_fused         = (torch.sigmoid(self.edges[-1]).detach()-0.5)/0.5
-        centerlines_fused  = (torch.sigmoid(self.centerlines[-1]).detach()-0.5)/0.5
+        segment_fused      = (torch.sigmoid(self.segments[-1])-0.5)/0.5
+        edge_fused         = (torch.sigmoid(self.edges[-1])-0.5)/0.5
+        centerlines_fused  = (torch.sigmoid(self.centerlines[-1])-0.5)/0.5
         self.label_pred = torch.cat([centerlines_fused, edge_fused, segment_fused], dim=1)
 
     def backward(self):
