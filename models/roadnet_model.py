@@ -25,7 +25,7 @@ class RoadNetModel(BaseModel):
         """
         BaseModel.__init__(self, opt)
         # specify the training losses you want to print out. The training/test scripts will call <BaseModel.get_current_losses>
-        self.loss_names = ['segment', 'edge', 'centerline']
+        self.loss_names = ['segment', 'segment_l2', 'edge', 'edge_l2', 'centerline', 'centerline_l2']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.visual_names = ['image', 'label_gt', 'label_pred']
         # specify the models you want to save to the disk. 
@@ -104,19 +104,20 @@ class RoadNetModel(BaseModel):
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
             self.loss_segment += self._class_balanced_sigmoid_cross_entropy(out, self.segment_gt) * w
-        self.loss_segment += torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
+        self.loss_segment_l2 = torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
         self.loss_edge = 0.0
         for out, w in zip(self.edges, self.weight_others_side):
             self.loss_edge += self._class_balanced_sigmoid_cross_entropy(out, self.edge_gt) * w
-        self.loss_edge += torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
+        self.loss_edge_l2 = torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
             self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerline_gt) * w
-        self.loss_centerline += torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
+        self.loss_centerline_l2 = torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
 
-        self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline
+        self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline + \
+            self.loss_segment_l2 + self.loss_edge_l2 + self.loss_centerline_l2
         self.loss_total.backward()
 
     def optimize_parameters(self):
