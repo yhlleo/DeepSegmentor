@@ -31,5 +31,4 @@ python3 train.py \
   --no_flip 0 \
   --norm batch \
   --display_id 0 \
-  --lr 0.001 \
   --use_augment 0
