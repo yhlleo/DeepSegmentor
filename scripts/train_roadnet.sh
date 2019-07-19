@@ -30,4 +30,5 @@ python3 train.py \
   --load_height ${LOAD_HEIGHT} \
   --no_flip 0 \
   --norm batch \
-  --display_id 0
+  --display_id 0 \
+  --lr 0.001
