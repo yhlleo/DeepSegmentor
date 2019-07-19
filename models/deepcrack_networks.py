@@ -36,10 +36,10 @@ class DeepCrackNet(nn.Module):
         self.fuse_conv = nn.Conv2d(num_classes*5, num_classes, kernel_size=1, stride=1, bias=False)
         self.maxpool = nn.MaxPool2d(2, stride=2)
 
-        self.up2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-        self.up4 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
-        self.up8 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=True)
-        self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
+        #self.up2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        #self.up4 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
+        #self.up8 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=True)
+        #self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
 
     def _conv_block(self, in_nc, out_nc, norm_layer, num_block=2, kernel_size=3, 
         stride=1, padding=1, bias=False):
@@ -53,6 +53,7 @@ class DeepCrackNet(nn.Module):
         return conv
 
     def forward(self, x):
+        h,w = x.size()[2:]
         # main stream features
         conv1 = self.conv1(x)
         conv2 = self.conv2(self.maxpool(conv1))
@@ -66,10 +67,10 @@ class DeepCrackNet(nn.Module):
         side_output4 = self.side_conv4(conv4)
         side_output5 = self.side_conv5(conv5)
         # upsampling side output features
-        side_output2 = self.up2(side_output2)
-        side_output3 = self.up4(side_output3)
-        side_output4 = self.up8(side_output4)
-        side_output5 = self.up16(side_output5)
+        side_output2 = F.interpolate(side_output2, size=(h, w), mode='bilinear', align_corners=True) #self.up2(side_output2)
+        side_output3 = F.interpolate(side_output3, size=(h, w), mode='bilinear', align_corners=True) #self.up4(side_output3)
+        side_output4 = F.interpolate(side_output4, size=(h, w), mode='bilinear', align_corners=True) #self.up8(side_output4)
+        side_output5 = F.interpolate(side_output5, size=(h, w), mode='bilinear', align_corners=True) #self.up16(side_output5)
 
         fused = self.fuse_conv(torch.cat([side_output1, 
                                           side_output2, 

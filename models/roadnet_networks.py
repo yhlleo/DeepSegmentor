@@ -14,44 +14,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .networks import get_norm_layer, init_net
 
-class BalancedSigmoidLoss(nn.Module):
-    def __init__(self, use_sigmoid=True, size_average=True):
-        super(BalancedSigmoidLoss, self).__init__()
-        self.use_sigmoid = use_sigmoid
-        self.size_average = size_average
-
-    def forward(self, logits, label):
-        """
-        The class-balanced cross entropy loss, as in `Holistically-Nested Edge Detection
-        <http://arxiv.org/abs/1504.06375>`_.
-        Args:
-            logits: of shape [N,1,H,W].
-            label: of the same shape. the ground truth in {0,1}.
-        Returns:
-            class-balanced cross entropy loss.
-        """
-        count_neg = torch.sum(1 - label)
-        count_pos = torch.sum(label)
-        beta = (count_neg/(count_neg+count_pos))
-        if count_pos == 0.0:
-            return count_pos
-
-        sigmoid_logits = torch.sigmoid(logits) if self.use_sigmoid else logits
-        loss = -beta*label*sigmoid_logits.log()-(1-beta)*(1-label)*(1-sigmoid_logits).log()
-        if self.size_average:
-            return loss.mean()
-        else:
-            return loss.sum()
-
-class SeLU_layer(nn.Module):
-    def __init__(self, inplace=False):
-        super(SeLU_layer, self).__init__()
-        self.scale = 1.0507009873554804934193349852946
-        self.elu = nn.ELU(alpha=1.6732632423543772848170429916717, inplace=inplace)
-
-    def forward(self, x):
-        return self.scale*self.elu(x)
-
 class RoadNet(nn.Module):
     def __init__(self, in_nc, out_nc, ngf, norm='batch', use_selu=1):
         super(RoadNet, self).__init__()
@@ -108,10 +70,10 @@ class RoadNet(nn.Module):
 
         self.maxpool = nn.MaxPool2d(2, stride=2)
 
-        self.up2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-        self.up4 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
-        self.up8 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=True)
-        self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
+        #self.up2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        #self.up4 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=True)
+        #self.up8 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=True)
+        #self.up16 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=True)
 
     def _conv_block(self, in_nc, out_nc, norm_layer, use_selu, num_block=2, kernel_size=3, 
         stride=1, padding=1, bias=True):
@@ -121,7 +83,7 @@ class RoadNet(nn.Module):
             conv += [nn.Conv2d(cur_in_nc, out_nc, kernel_size=kernel_size, stride=stride, 
                                padding=padding, bias=bias)]
             if use_selu:
-                conv += [SeLU_layer(True)]
+                conv += [nn.SeLU(True)]
             else:
                 conv += [norm_layer(out_nc), nn.ReLU(True)]
         return conv
@@ -145,10 +107,10 @@ class RoadNet(nn.Module):
         side_output4 = self.side_segment_conv4(conv4)
         side_output5 = self.side_segment_conv5(conv5)
         # upsampling side output features
-        side_output2 = self.up2(side_output2)
-        side_output3 = self.up4(side_output3)
-        side_output4 = self.up8(side_output4)
-        side_output5 = self.up16(side_output5)
+        side_output2 = F.interpolate(side_output2, size=(h, w), mode='bilinear', align_corners=True) #self.up2(side_output2)
+        side_output3 = F.interpolate(side_output3, size=(h, w), mode='bilinear', align_corners=True) #self.up4(side_output3)
+        side_output4 = F.interpolate(side_output4, size=(h, w), mode='bilinear', align_corners=True) #self.up8(side_output4)
+        side_output5 = F.interpolate(side_output5, size=(h, w), mode='bilinear', align_corners=True) #self.up16(side_output5)
 
         fused = self.fuse_segment_conv(torch.cat([
             side_output1, 
@@ -175,9 +137,9 @@ class RoadNet(nn.Module):
         side_output3 = self.side_edge_conv3(conv3)
         side_output4 = self.side_edge_conv4(conv4)
         # upsampling side output features
-        side_output2 = self.up2(side_output2)
-        side_output3 = self.up4(side_output3)
-        side_output4 = self.up8(side_output4)
+        side_output2 = F.interpolate(side_output2, size=(h, w), mode='bilinear', align_corners=True) #self.up2(side_output2)
+        side_output3 = F.interpolate(side_output3, size=(h, w), mode='bilinear', align_corners=True) #self.up4(side_output3)
+        side_output4 = F.interpolate(side_output4, size=(h, w), mode='bilinear', align_corners=True) #self.up8(side_output4)
         fused = self.fuse_edge_conv(torch.cat([
             side_output1, 
             side_output2, 
@@ -202,9 +164,9 @@ class RoadNet(nn.Module):
         side_output3 = self.side_centerline_conv3(conv3)
         side_output4 = self.side_centerline_conv4(conv4)
         # upsampling side output features
-        side_output2 = self.up2(side_output2)
-        side_output3 = self.up4(side_output3)
-        side_output4 = self.up8(side_output4)
+        side_output2 = F.interpolate(side_output2, size=(h, w), mode='bilinear', align_corners=True) #self.up2(side_output2)
+        side_output3 = F.interpolate(side_output3, size=(h, w), mode='bilinear', align_corners=True) #self.up4(side_output3)
+        side_output4 = F.interpolate(side_output4, size=(h, w), mode='bilinear', align_corners=True) #self.up8(side_output4)
         fused = self.fuse_centerline_conv(torch.cat([
             side_output1, 
             side_output2, 
