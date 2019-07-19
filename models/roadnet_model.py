@@ -50,7 +50,7 @@ class RoadNetModel(BaseModel):
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
-            self.optimizer = torch.optim.Adam(self.netG.parameters(), lr=opt.lr, weight_decay=2e-4)
+            self.optimizer = torch.optim.Adam(self.netG.parameters(), lr=opt.lr, eps=1e-3, weight_decay=2e-4)
             #self.optimizer = torch.optim.SGD(self.netG.parameters(), lr=opt.lr, momentum=0.9, weight_decay=2e-4)
             self.optimizers.append(self.optimizer)
 
