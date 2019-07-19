@@ -76,7 +76,7 @@ class RoadNetModel(BaseModel):
         """
         count_neg = torch.sum(1 - label)
         count_pos = torch.sum(label)
-        beta = count_neg/(count_neg+count_pos)
+        beta = (count_neg/(count_neg+count_pos)).detach()
 
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         sigmoid_logits = torch.sigmoid(logits)
