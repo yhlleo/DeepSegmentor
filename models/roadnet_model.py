@@ -68,16 +68,15 @@ class RoadNetModel(BaseModel):
         This function accepts logits rather than predictions, and is more numerically stable than
         :func:`class_balanced_cross_entropy`.
         """
-        y = label.view(-1).float()
-        count_neg = torch.sum(1.0 - y)
-        count_pos = torch.sum(y)
+        count_neg = torch.sum(1 - label)
+        count_pos = torch.sum(label)
         beta = count_neg/(count_neg+count_pos)
 
-        pos_weight = beta/(1.0-beta)
+        pos_weight = beta/(1 - beta + 1e-4)
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         sigmoid_logits = torch.sigmoid(logits)
         loss = -pos_weight*label*sigmoid_logits.log()-(1-label)*(1-sigmoid_logits).log()
-        loss = torch.mean(loss*(1.0-beta))
+        loss = torch.mean(loss*(1 - beta + 1e-4))
         return torch.where(count_pos==0.0, torch.tensor([0.0]).to(self.device), loss)
 
     def forward(self):
