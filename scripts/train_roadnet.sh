@@ -24,7 +24,7 @@ python3 train.py \
   --batch_size ${BATCH_SIZE} \
   --output_nc 1 \
   --use_selu ${USE_SELU} \
-  --lr 0.00001 \
+  --lr 0.0001 \
   --lr_decay_iters 40 \
   --lr_policy step \
   --load_width ${LOAD_WIDTH} \

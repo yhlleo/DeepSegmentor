@@ -86,18 +86,18 @@ class RoadNetModel(BaseModel):
 
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
-            loss_segment_side = self.criterionBSL(out, self.segment_gt) * w
+            loss_segment_side = self.criterionBCE(out, self.segment_gt) * w
             self.loss_segment += loss_segment_side
         self.loss_segment_l2 = torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
         self.loss_edge = 0.0
         for out, w in zip(self.edges, self.weight_others_side):
-            self.loss_edge += self.criterionBSL(out, self.edge_gt) * w
+            self.loss_edge += self.criterionBCE(out, self.edge_gt) * w
         self.loss_edge_l2 = torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
-            self.loss_centerline += self.criterionBSL(out, self.centerline_gt) * w
+            self.loss_centerline += self.criterionBCE(out, self.centerline_gt) * w
         self.loss_centerline_l2 = torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline + \
