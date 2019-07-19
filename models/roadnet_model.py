@@ -25,7 +25,7 @@ class RoadNetModel(BaseModel):
         """
         BaseModel.__init__(self, opt)
         # specify the training losses you want to print out. The training/test scripts will call <BaseModel.get_current_losses>
-        self.loss_names = ['segment', 'segment_l2', 'edge', 'edge_l2', 'centerline', 'centerline_l2']
+        self.loss_names = ['segment', 'edge', 'centerline']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.visual_names = ['image', 'label_gt', 'label_pred']
         # specify the models you want to save to the disk. 
