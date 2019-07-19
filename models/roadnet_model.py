@@ -41,8 +41,6 @@ class RoadNetModel(BaseModel):
                                    opt.init_gain, 
                                    self.gpu_ids)
 
-        self.softmax = torch.nn.Softmax(dim=1)
-
         if self.isTrain:
             # define loss functions
             self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
@@ -71,14 +69,15 @@ class RoadNetModel(BaseModel):
         :func:`class_balanced_cross_entropy`.
         """
         y = label.view(-1).float()
-        count_neg = torch.mean(1.0 - y)
-        count_pos = torch.mean(y)
+        count_neg = torch.sum(1.0 - y)
+        count_pos = torch.sum(y)
         beta = count_neg/(count_neg+count_pos)
 
         pos_weight = beta / (1.0 - beta + 1e-3)
         #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
         loss = -pos_weight*label*torch.sigmoid(logits).log() - (1-label)*(1-torch.sigmoid(logits)).log()
-        return loss.mean()
+        loss = torch.mean(loss * (1-beta))
+        return torch.where(count_pos==0.0, 0.0, loss)
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
