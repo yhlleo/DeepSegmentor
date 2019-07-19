@@ -43,7 +43,7 @@ class RoadNetModel(BaseModel):
 
         if self.isTrain:
             # define loss functions
-            self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
+            #self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
             self.weight_segment_side = [0.5, 0.75, 1.0, 0.75, 0.5, 1.0]
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
@@ -104,17 +104,17 @@ class RoadNetModel(BaseModel):
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
             self.loss_segment += self._class_balanced_sigmoid_cross_entropy(out, self.segment_gt) * w
-        self.loss_segment += self.criterionL2(torch.sigmoid(self.segments[-1]), self.segment_gt) * 0.5
+        self.loss_segment += torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
         self.loss_edge = 0.0
         for out, w in zip(self.edges, self.weight_others_side):
             self.loss_edge += self._class_balanced_sigmoid_cross_entropy(out, self.edge_gt) * w
-        self.loss_edge += self.criterionL2(torch.sigmoid(self.edges[-1]), self.edge_gt) * 0.5
+        self.loss_edge += torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
             self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerline_gt) * w
-        self.loss_centerline += self.criterionL2(torch.sigmoid(self.centerlines[-1]), self.centerline_gt) * 0.5
+        self.loss_centerline += torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline
         self.loss_total.backward()
