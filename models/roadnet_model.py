@@ -65,8 +65,13 @@ class RoadNetModel(BaseModel):
 
     def _class_balanced_sigmoid_cross_entropy(self, logits, label):
         """
-        This function accepts logits rather than predictions, and is more numerically stable than
-        :func:`class_balanced_cross_entropy`.
+        The class-balanced cross entropy loss, as in `Holistically-Nested Edge Detection
+        <http://arxiv.org/abs/1504.06375>`_.
+        Args:
+            logits: of shape [N,1,H,W].
+            label: of the same shape. the ground truth in {0,1}.
+        Returns:
+            class-balanced cross entropy loss.
         """
         count_neg = torch.sum(1 - label)
         count_pos = torch.sum(label)
