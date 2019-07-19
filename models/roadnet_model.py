@@ -52,8 +52,8 @@ class RoadNetModel(BaseModel):
             self.optimizers.append(self.optimizer)
 
     def _get_balanced_sigmoid_cross_entropy(self,x):
-        count_neg = tf.reduce_sum(1. - x)
-        count_pos = tf.reduce_sum(x)
+        count_neg = torch.sum(1. - x)
+        count_pos = torch.sum(x)
         beta = count_neg / (count_neg + count_pos)
         pos_weight = beta / (1 - beta)
         cost = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
