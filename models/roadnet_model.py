@@ -87,7 +87,6 @@ class RoadNetModel(BaseModel):
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
             loss_segment_side = self.criterionBSL(out, self.segment_gt) * w
-            print(w, loss_segment_side,  out.mean(), self.segment_gt.mean())
             self.loss_segment += loss_segment_side
         self.loss_segment_l2 = torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
