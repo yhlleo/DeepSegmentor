@@ -34,7 +34,7 @@ class BalancedSigmoidLoss(nn.Module):
         count_pos = torch.sum(label)
         beta = (count_neg/(count_neg+count_pos))
         if count_pos == 0.0:
-            return loss = 0.0
+            return count_pos
 
         sigmoid_logits = torch.sigmoid(logits) if self.use_sigmoid else logits
         loss = -beta*label*sigmoid_logits.log()-(1-beta)*(1-label)*(1-sigmoid_logits).log()
