@@ -42,7 +42,7 @@ We provide our pretrained models here (just for testing):
 
 |Model|Google Drive| BaiduYun|
 |:----|:----:|:----:|
-|DeepCrack|:ok_hand:[[link]](https://drive.google.com/open?id=1V_Ja1ADhF2uKzr3Z-V-8eXbngvCTZANR)|:ok_hand:[[link]](https://pan.baidu.com/s/1-kJKB0qCZyajBCRtA1-pvQ)(psw: r8fo)|
+|DeepCrack|:ok_hand:[[link]]|:ok_hand:[[link]]|
 |RoadNet|[[link]]|[[link]]|
 |RoadNet++|[[link]]|[[link]]|
 
