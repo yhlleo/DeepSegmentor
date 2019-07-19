@@ -14,6 +14,33 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .networks import get_norm_layer, init_net
 
+class BalancedSigmoidLoss(nn.Module):
+    def __init__(self, use_sigmoid=True, size_average=True):
+        super(BalancedSigmoidLoss, self).__init__()
+        self.use_sigmoid = use_sigmoid
+        self.size_average = size_average
+
+    def forward(self, logits, label):
+        """
+        The class-balanced cross entropy loss, as in `Holistically-Nested Edge Detection
+        <http://arxiv.org/abs/1504.06375>`_.
+        Args:
+            logits: of shape [N,1,H,W].
+            label: of the same shape. the ground truth in {0,1}.
+        Returns:
+            class-balanced cross entropy loss.
+        """
+        count_neg = torch.sum(1 - label)
+        count_pos = torch.sum(label)
+        beta = (count_neg/(count_neg+count_pos))
+
+        sigmoid_logits = torch.sigmoid(logits) if self.use_sigmoid else logits
+        loss = -beta*label*sigmoid_logits.log()-(1-beta)*(1-label)*(1-sigmoid_logits).log()
+        if self.size_average:
+            return loss.mean()
+        else:
+            return loss.sum()
+
 class SeLU_layer(nn.Module):
     def __init__(self, inplace=False):
         super(SeLU_layer, self).__init__()
@@ -196,7 +223,7 @@ def define_roadnet(in_nc,
                    ngf, 
                    norm='batch',
                    use_selu=1,
-                   init_type='normal', 
+                   init_type='xavier', 
                    init_gain=0.02, 
                    gpu_ids=[]):
     net = RoadNet(in_nc, out_nc, ngf, norm, use_selu)

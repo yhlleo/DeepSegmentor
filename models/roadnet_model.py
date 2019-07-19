@@ -5,7 +5,7 @@ import numpy as np
 import itertools
 from .base_model import BaseModel
 import torch.nn.functional as F
-from .roadnet_networks import define_roadnet
+from .roadnet_networks import define_roadnet, BalancedSigmoidLoss
 
 class RoadNetModel(BaseModel):
     """
@@ -44,6 +44,8 @@ class RoadNetModel(BaseModel):
         if self.isTrain:
             # define loss functions
             #self.criterionL2 = torch.nn.MSELoss(size_average=True, reduce=True)
+            self.criterionBSL = BalancedSigmoidLoss()
+            self.criterionBCE = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True)
             self.weight_segment_side = [0.5, 0.75, 1.0, 0.75, 0.5, 1.0]
             self.weight_others_side = [0.5, 0.75, 1.0, 0.75, 1.0]
 
@@ -63,25 +65,6 @@ class RoadNetModel(BaseModel):
         self.edge_gt        = input['edge'].to(self.device)
         self.centerline_gt  = input['centerline'].to(self.device)
         self.image_paths    = input['A_paths']
-
-    def _class_balanced_sigmoid_cross_entropy(self, logits, label):
-        """
-        The class-balanced cross entropy loss, as in `Holistically-Nested Edge Detection
-        <http://arxiv.org/abs/1504.06375>`_.
-        Args:
-            logits: of shape [N,1,H,W].
-            label: of the same shape. the ground truth in {0,1}.
-        Returns:
-            class-balanced cross entropy loss.
-        """
-        count_neg = torch.sum(1 - label)
-        count_pos = torch.sum(label)
-        beta = (count_neg/(count_neg+count_pos)).detach()
-
-        #critic = torch.nn.BCEWithLogitsLoss(size_average=True, reduce=True, pos_weight=pos_weight)
-        sigmoid_logits = torch.sigmoid(logits)
-        loss = -beta*label*sigmoid_logits.log()-(1-beta)*(1-label)*(1-sigmoid_logits).log()
-        return loss.mean()
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
@@ -103,19 +86,19 @@ class RoadNetModel(BaseModel):
 
         self.loss_segment = 0.0
         for out, w in zip(self.segments, self.weight_segment_side):
-            loss_segment_side = self._class_balanced_sigmoid_cross_entropy(out, self.segment_gt) * w
+            loss_segment_side = self.criterionBSL(out, self.segment_gt) * w
             print(w, loss_segment_side,  out.mean(), self.segment_gt.mean())
             self.loss_segment += loss_segment_side
         self.loss_segment_l2 = torch.mean((torch.sigmoid(self.segments[-1])-self.segment_gt)**2) * 0.5
 
         self.loss_edge = 0.0
         for out, w in zip(self.edges, self.weight_others_side):
-            self.loss_edge += self._class_balanced_sigmoid_cross_entropy(out, self.edge_gt) * w
+            self.loss_edge += self.criterionBSL(out, self.edge_gt) * w
         self.loss_edge_l2 = torch.mean((torch.sigmoid(self.edges[-1])-self.edge_gt)**2) * 0.5
 
         self.loss_centerline = 0.0
         for out, w in zip(self.centerlines, self.weight_others_side):
-            self.loss_centerline += self._class_balanced_sigmoid_cross_entropy(out, self.centerline_gt) * w
+            self.loss_centerline += self.criterionBSL(out, self.centerline_gt) * w
         self.loss_centerline_l2 = torch.mean((torch.sigmoid(self.centerlines[-1])-self.centerline_gt)**2) * 0.5
 
         self.loss_total = self.loss_segment + self.loss_edge + self.loss_centerline + \
