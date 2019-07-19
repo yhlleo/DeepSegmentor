@@ -94,7 +94,7 @@ class DeepCrackModel(BaseModel):
         self.loss_total = self.loss_side * lambda_side + self.loss_fused * lambda_fused
         self.loss_total.backward()
 
-    def optimize_parameters(self):
+    def optimize_parameters(self, epoch=None):
         """Calculate losses, gradients, and update network weights; called in every training iteration"""
         # forward
         self.forward()      # compute predictions.
