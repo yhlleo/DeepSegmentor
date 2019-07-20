@@ -69,6 +69,8 @@ sh ./scripts/test_roadnet.sh <gpu_id>
 |:----:|:----:|:----:|
 |![](./figures/roadnet/1-2-10_image.png)|![](./figures/roadnet/1-2-10_label_gt.png)|![](./figures/roadnet/1-2-10_label_pred.png)|
 
+[[See more examples >>>]](./figures/roadnet.md)
+
 ### 6.Evaluation
 
  - Metrics (appeared in our papers):
