@@ -25,7 +25,7 @@ python3 ./tools/calculate_weights.py --data_path <path_to_segmentation>
 
 ### 4.Training
 
-Download a dataset and copy it into the folder `datasets`, you can use our provided data loading module or rewrite new ones. 
+Before the training, please download the dataset and copy it into the folder `datasets`. 
 
  - Crack Detection
 
