@@ -5,7 +5,7 @@
 dataset tree:
 
 ```
-deepcrack
+DeepCrack
   |__train_img
   |    |__a.jpg
   |    |__...
@@ -31,7 +31,7 @@ Example:
 dataset tree:
 
 ```
-roadnet
+RoadNet
   |__train_image
   |    |__a.png
   |    |__...
