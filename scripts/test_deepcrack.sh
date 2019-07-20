@@ -11,7 +11,7 @@ NORM=batch
 NUM_CLASSES=2
 NUM_TEST=10000
 
-python3.5 test.py \
+python3 test.py \
   --dataroot ${DATAROOT} \
   --name ${NAME} \
   --model ${MODEL} \

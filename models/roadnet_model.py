@@ -70,9 +70,10 @@ class RoadNetModel(BaseModel):
         self.edge_gt        = input['edge'].to(self.device)
         self.centerline_gt  = input['centerline'].to(self.device)
         self.image_paths    = input['A_paths']
-        self.criterion_seg, self.beta_seg  = self._get_balanced_sigmoid_cross_entropy(self.segment_gt)
-        self.criterion_edg, self.beta_edg  = self._get_balanced_sigmoid_cross_entropy(self.edge_gt)
-        self.criterion_cnt, self.beta_cnt  = self._get_balanced_sigmoid_cross_entropy(self.centerline_gt)
+        if self.isTrain:
+            self.criterion_seg, self.beta_seg  = self._get_balanced_sigmoid_cross_entropy(self.segment_gt)
+            self.criterion_edg, self.beta_edg  = self._get_balanced_sigmoid_cross_entropy(self.edge_gt)
+            self.criterion_cnt, self.beta_cnt  = self._get_balanced_sigmoid_cross_entropy(self.centerline_gt)
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
