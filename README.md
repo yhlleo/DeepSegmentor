@@ -114,7 +114,7 @@ If you take use of our datasets or code, please cite our papers:
   doi={10.1016/j.neucom.2019.01.036}
 }
 
-@article{liu2018roadnet,
+@article{liu2019roadnet,
   title={RoadNet: Learning to Comprehensively Analyze Road Networks in Complex Urban Scenes from High-Resolution Remotely Sensed Images},
   author={Liu, Yahui and Yao, Jian and Lu, Xiaohu and Xia, Menghan and Wang, Xingbo and Liu, Yuan},
   journal={IEEE Transactions on Geoscience and Remote Sensing},
