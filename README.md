@@ -43,11 +43,9 @@ We provide our pretrained models here (just for testing):
 |Model|Google Drive| BaiduYun|
 |:----|:----:|:----:|
 |DeepCrack|:ok_hand:[[link]]|:ok_hand:[[link]]|
-|RoadNet|[[link]]|[[link]]|
+|RoadNet|:ok_hand:[[link]]|:ok_hand:[[link]]|
 |RoadNet++|[[link]]|[[link]]|
 
-
-//TODO
 
 ### 5.Testing
 
@@ -58,7 +56,7 @@ sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
 |Image|Ground Truth|fused|side1|side2|side3|side4|side5|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----|
-|![](./figures/deepcrack/images/11194_image.png)|![](./figures/deepcrack/images/11194_label_viz.png)|![](./figures/deepcrack/images/11194_fused.png)|![](./figures/deepcrack/images/11194_side1.png)|![](./figures/deepcrack/images/11194_side2.png)|![](./figures/deepcrack/images/11194_side3.png)|![](./figures/deepcrack/images/11194_side4.png)|![](./figures/deepcrack/images/11194_side5.png)|
+|![](./figures/deepcrack/11194_image.png)|![](./figures/deepcrack/11194_label_viz.png)|![](./figures/deepcrack/11194_fused.png)|![](./figures/deepcrack/11194_side1.png)|![](./figures/deepcrack/11194_side2.png)|![](./figures/deepcrack/11194_side3.png)|![](./figures/deepcrack/11194_side4.png)|![](./figures/deepcrack/11194_side5.png)|
 
 [[See more examples >>>]](./figures/deepcrack.md)
 
@@ -67,8 +65,9 @@ sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
 sh ./scripts/test_roadnet.sh <gpu_id>
 ```
-
-//TODO
+|Image|Ground Truth|Prediction|
+|:----:|:----:|:----:|
+|![](./roadnet/1-2-10_image.png)|![](./roadnet/1-2-10_label_gt.png)|![](./roadnet/1-2-10_label_pred.png)|
 
 ### 6.Evaluation
 
