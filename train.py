@@ -1,4 +1,4 @@
-"""Based on CycleGAN"""
+"""Based one CycleGAN project: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix"""
 import time
 from options.train_options import TrainOptions
 from data import create_dataset
