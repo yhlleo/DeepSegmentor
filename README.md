@@ -91,9 +91,14 @@ sh ./scripts/test_roadnet.sh <gpu_id>
 
  **Note**: If you want to apply the standard non-maximum suppression (NMS) for edge/centerline thinning. Please see more details in [Piotr's Structured Forest matlab toolbox](https://github.com/pdollar/edges) or some helper functions provided in the [hed/eval](https://github.com/s9xie/hed_release-deprecated/tree/master/examples/eval).
 
- - Evaluation
+[[See more examples >>>]](./figures/roadnet.md)
 
-//TODO
+Usage:
+
+```
+cd eval
+python eval --metric_mode prf --model_name deepcrack --output deepcrack.txt
+```
 
 ### Acknowledgment
 
