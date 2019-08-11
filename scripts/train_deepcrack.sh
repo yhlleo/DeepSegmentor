@@ -5,7 +5,7 @@ NAME=deepcrack
 MODEL=deepcrack
 DATASET_MODE=deepcrack
 
-BATCH_SIZE=4
+BATCH_SIZE=1
 NUM_CLASSES=2
 LOAD_WIDTH=544
 LOAD_HEIGHT=384
@@ -30,5 +30,4 @@ python3 train.py \
   --load_width ${LOAD_WIDTH} \
   --load_height ${LOAD_HEIGHT} \
   --no_flip 0 \
-  --display_id 0 \
-  --use_augment 0
+  --display_id 0
