@@ -11,8 +11,8 @@ LOAD_WIDTH=544
 LOAD_HEIGHT=384
 
 NORM=batch
-NITER=200
-NITER_DECAY=200
+NITER=300
+NITER_DECAY=300
 
 python3 train.py \
   --dataroot ${DATAROOT} \
@@ -30,4 +30,5 @@ python3 train.py \
   --load_width ${LOAD_WIDTH} \
   --load_height ${LOAD_HEIGHT} \
   --no_flip 0 \
-  --display_id 0
+  --display_id 0 \
+  --use_augment 0
