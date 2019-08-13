@@ -65,29 +65,29 @@ class RoadNetModel(BaseModel):
         Parameters:
             input (dict): include the data itself and its metadata information.
         """
-        self.image          = input['image'].to(self.device)
-        self.segment_gt     = input['segment'].to(self.device)
-        self.edge_gt        = input['edge'].to(self.device)
-        self.centerline_gt  = input['centerline'].to(self.device)
-        self.image_paths    = input['A_paths']
+        self.image       = input['image'].to(self.device)
+        self.image_paths = input['A_paths']
         if self.isTrain:
-            self.criterion_seg, self.beta_seg  = self._get_balanced_sigmoid_cross_entropy(self.segment_gt)
-            self.criterion_edg, self.beta_edg  = self._get_balanced_sigmoid_cross_entropy(self.edge_gt)
-            self.criterion_cnt, self.beta_cnt  = self._get_balanced_sigmoid_cross_entropy(self.centerline_gt)
+            self.segment_gt    = input['segment'].to(self.device)
+            self.edge_gt       = input['edge'].to(self.device)
+            self.centerline_gt = input['centerline'].to(self.device)
+            self.criterion_seg, self.beta_seg = self._get_balanced_sigmoid_cross_entropy(self.segment_gt)
+            self.criterion_edg, self.beta_edg = self._get_balanced_sigmoid_cross_entropy(self.edge_gt)
+            self.criterion_cnt, self.beta_cnt = self._get_balanced_sigmoid_cross_entropy(self.centerline_gt)
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.segments, self.edges, self.centerlines = self.netG(self.image)
 
         # for visualization
-        segment_gt_viz     = (self.segment_gt-0.5)/0.5
-        edge_gt_viz        = (self.edge_gt-0.5)/0.5
+        segment_gt_viz    = (self.segment_gt-0.5)/0.5
+        edge_gt_viz       = (self.edge_gt-0.5)/0.5
         centerline_gt_viz = (self.centerline_gt-0.5)/0.5
         self.label_gt = torch.cat([centerline_gt_viz, edge_gt_viz, segment_gt_viz], dim=1)
 
-        segment_fused      = (torch.sigmoid(self.segments[-1])-0.5)/0.5
-        edge_fused         = (torch.sigmoid(self.edges[-1])-0.5)/0.5
-        centerlines_fused  = (torch.sigmoid(self.centerlines[-1])-0.5)/0.5
+        segment_fused     = (torch.sigmoid(self.segments[-1])-0.5)/0.5
+        edge_fused        = (torch.sigmoid(self.edges[-1])-0.5)/0.5
+        centerlines_fused = (torch.sigmoid(self.centerlines[-1])-0.5)/0.5
         self.label_pred = torch.cat([centerlines_fused, edge_fused, segment_fused], dim=1)
 
     def backward(self):

@@ -63,8 +63,9 @@ class DeepCrackModel(BaseModel):
             input (dict): include the data itself and its metadata information.
         """
         self.image = input['image'].to(self.device)
-        self.label = input['label'].to(self.device)
-        self.label3d = self.label.squeeze(1)
+        if self.isTrain:
+            self.label = input['label'].to(self.device)
+            self.label3d = self.label.squeeze(1)
         self.image_paths = input['A_paths']
 
     def forward(self):
