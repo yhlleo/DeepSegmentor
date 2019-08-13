@@ -65,12 +65,12 @@ class RoadNetModel(BaseModel):
         Parameters:
             input (dict): include the data itself and its metadata information.
         """
-        self.image       = input['image'].to(self.device)
-        self.image_paths = input['A_paths']
+        self.image         = input['image'].to(self.device)
+        self.segment_gt    = input['segment'].to(self.device)
+        self.edge_gt       = input['edge'].to(self.device)
+        self.centerline_gt = input['centerline'].to(self.device)
+        self.image_paths   = input['A_paths']
         if self.isTrain:
-            self.segment_gt    = input['segment'].to(self.device)
-            self.edge_gt       = input['edge'].to(self.device)
-            self.centerline_gt = input['centerline'].to(self.device)
             self.criterion_seg, self.beta_seg = self._get_balanced_sigmoid_cross_entropy(self.segment_gt)
             self.criterion_edg, self.beta_edg = self._get_balanced_sigmoid_cross_entropy(self.edge_gt)
             self.criterion_cnt, self.beta_cnt = self._get_balanced_sigmoid_cross_entropy(self.centerline_gt)
