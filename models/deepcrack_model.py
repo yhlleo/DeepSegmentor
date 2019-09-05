@@ -48,7 +48,7 @@ class DeepCrackModel(BaseModel):
 
         if self.isTrain:
             # define loss functions
-            self.weight = torch.from_numpy(np.array([1.0000, 33.3333], dtype='float32')).float().to(self.device)
+            self.weight = torch.from_numpy(np.array([0.0300, 1.0000], dtype='float32')).float().to(self.device)
             self.criterionSeg = torch.nn.CrossEntropyLoss(weight=self.weight)
             self.weight_side = [0.5, 0.75, 1.0, 0.75, 0.5]
 
