@@ -97,7 +97,7 @@ Usage:
 
 ```
 cd eval
-python eval --metric_mode prf --model_name deepcrack --output deepcrack.txt
+python eval.py --metric_mode prf --model_name deepcrack --output deepcrack.txt
 ```
 
 ### Acknowledgment
