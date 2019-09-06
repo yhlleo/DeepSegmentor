@@ -17,7 +17,6 @@ parser.add_argument('--output', type=str, default='')
 parser.add_argument('--thresh_step', type=float, default=0.01)
 args = parser.parse_args()
 
-
 if __name__ == '__main__':
     metric_mode = args.metric_mode
     results_dir = os.path.join(args.results_dir, args.model_name, 'test_latest', 'images')
