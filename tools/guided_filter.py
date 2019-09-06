@@ -27,5 +27,5 @@ if __name__ == '__main__':
 
         img_out = guidedFilter(img_fused, img_side, radius=5, eps=1e-6*255*255)
 
-        cv2.imwrite(ff.replace(args.suffix_fused, args.suffix_output), img_gf, 
+        cv2.imwrite(ff.replace(args.suffix_fused, args.suffix_output), img_out, 
             [cv2.IMWRITE_PNG_COMPRESSION, 0])
