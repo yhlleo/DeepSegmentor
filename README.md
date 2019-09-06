@@ -38,11 +38,11 @@ sh ./scripts/train_deepcrack.sh <gpu_id>
 sh ./scripts/train_roadnet.sh <gpu_id>
 ```
 
-We provide our pretrained models here (roughly trained models for testing):
+We provide our pretrained models here:
 
 |Model|Google Drive|Baidu Yun|Others|
 |:----|:----:|:----:|:----:|
-|DeepCrack|[link](https://drive.google.com/open?id=1MAwIlWw27feU8EEkP8pgbia7kcuxBwEG)|[link](https://pan.baidu.com/s/1eFdX8rKV9cGiZJS3CQFCrQ)(psw: 3fai)|Fine-tuned|
+|DeepCrack|:ok_hand:[link](https://drive.google.com/open?id=1MAwIlWw27feU8EEkP8pgbia7kcuxBwEG)|:ok_hand:[link](https://pan.baidu.com/s/1eFdX8rKV9cGiZJS3CQFCrQ)(psw: 3fai)|Fine-tuned|
 |RoadNet|:ok_hand:[[link]](https://drive.google.com/open?id=1mTKp2ej9T3CUp3mV477w9EOx4EfcsGXE)|:ok_hand:[[link]](https://pan.baidu.com/s/1GEevUwp1xrEtASjixawrwg)(psw: c2gi)|Roughly trained|
 |RoadNet++|[link]|[link]|-|
 
