@@ -53,9 +53,9 @@ We provide our pretrained models here:
 ```
 sh ./scripts/test_deepcrack.sh <gpu_id>
 ```
-|Image|Ground Truth|fused|side1|side2|side3|side4|side5|
-|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----|
-|![](./figures/deepcrack/11194_image.png)|![](./figures/deepcrack/11194_label_viz.png)|![](./figures/deepcrack/11194_fused.png)|![](./figures/deepcrack/11194_side1.png)|![](./figures/deepcrack/11194_side2.png)|![](./figures/deepcrack/11194_side3.png)|![](./figures/deepcrack/11194_side4.png)|![](./figures/deepcrack/11194_side5.png)|
+|Image|Ground Truth|GF|fused|side1|side2|side3|side4|side5|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----|
+|![](./figures/deepcrack/11194_image.png)|![](./figures/deepcrack/11194_label_viz.png)|![](./figures/deepcrack/11194_gf.png)|![](./figures/deepcrack/11194_fused.png)|![](./figures/deepcrack/11194_side1.png)|![](./figures/deepcrack/11194_side2.png)|![](./figures/deepcrack/11194_side3.png)|![](./figures/deepcrack/11194_side4.png)|![](./figures/deepcrack/11194_side5.png)|
 
 [[See more examples >>>]](./figures/deepcrack.md)
 
