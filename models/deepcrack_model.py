@@ -55,7 +55,7 @@ class DeepCrackModel(BaseModel):
             self.weight_side = [0.5, 0.75, 1.0, 0.75, 0.5]
 
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
-            self.optimizer = torch.optim.SGD(self.netG.parameters(), lr=opt.lr, momentum=0.9, weight_decay=2e-5)
+            self.optimizer = torch.optim.SGD(self.netG.parameters(), lr=opt.lr, momentum=0.9, weight_decay=2e-4)
             self.optimizers.append(self.optimizer)
 
     def set_input(self, input):
