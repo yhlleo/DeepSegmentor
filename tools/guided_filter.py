@@ -10,7 +10,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_name', type=str, default='deepcrack')
 parser.add_argument('--results_dir', type=str, default='../results')
-parser.add_argument('--thresh', type=float, default=0.31)
+parser.add_argument('--thresh', type=float, default=0.31, help='using the best threshold')
 parser.add_argument('--epsilon', type=float, default=0.01)
 parser.add_argument('--radius', type=int, default=5)
 parser.add_argument('--suffix_fused', type=str, default='fused', help='Suffix of predicted file name')

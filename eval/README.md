@@ -39,7 +39,7 @@ deepcrack
  - `*_image.png`: input images,
  - `*_label_viz.png`: ground truth,
  - `*_fused.png`: outputs of fused layer,
- - `*_gt.png`: refined predictions by guided filter, see the code [`tools/guided_filter.py`],
+ - `*_gf.png`: refined predictions by guided filter, see the code [`tools/guided_filter.py`](../tools/guided_filter.py),
  - `*_side1.png`: side output 1,
  - `*_side2.png`: side output 2,
  - `*_side3.png`: side output 3,
