@@ -46,5 +46,5 @@ deepcrack
  - `*_side2.png`: side output 2,
  - `*_side3.png`: side output 3,
  - `*_side4.png`: side output 4,
- - `*_side5.png`: side output 4,
+ - `*_side5.png`: side output 5,
 
