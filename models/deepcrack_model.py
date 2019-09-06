@@ -48,8 +48,10 @@ class DeepCrackModel(BaseModel):
 
         if self.isTrain:
             # define loss functions
-            self.weight = torch.from_numpy(np.array([0.0300, 1.0000], dtype='float32')).float().to(self.device)
-            self.criterionSeg = torch.nn.CrossEntropyLoss(weight=self.weight)
+            #self.weight = torch.from_numpy(np.array([0.0300, 1.0000], dtype='float32')).float().to(self.device)
+            #self.criterionSeg = torch.nn.CrossEntropyLoss(weight=self.weight)
+            self.criterionSeg = nn.BCEWithLogitsLoss(size_average=True, reduce=True, 
+                    pos_weight=torch.tensor(1.0/3e-2).to(self.device))
             self.weight_side = [0.5, 0.75, 1.0, 0.75, 0.5]
 
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
@@ -63,7 +65,7 @@ class DeepCrackModel(BaseModel):
         """
         self.image = input['image'].to(self.device)
         self.label = input['label'].to(self.device)
-        self.label3d = self.label.squeeze(1)
+        #self.label3d = self.label.squeeze(1)
         self.image_paths = input['A_paths']
 
     def forward(self):
@@ -72,13 +74,20 @@ class DeepCrackModel(BaseModel):
 
         # for visualization
         self.label_viz = (self.label.float()-0.5)/0.5
-        self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #self.fused = (self.softmax(self.outputs[-1])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #if self.display_sides:
+        #    self.side1 = (self.softmax(self.outputs[0])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #    self.side2 = (self.softmax(self.outputs[1])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #    self.side3 = (self.softmax(self.outputs[2])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #    self.side4 = (self.softmax(self.outputs[3])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        #    self.side5 = (self.softmax(self.outputs[4])[:,1].detach().unsqueeze(1)-0.5)/0.5
+        self.fused = (torch.sigmoid(self.outputs[-1])-0.5)/0.5
         if self.display_sides:
-            self.side1 = (self.softmax(self.outputs[0])[:,1].detach().unsqueeze(1)-0.5)/0.5
-            self.side2 = (self.softmax(self.outputs[1])[:,1].detach().unsqueeze(1)-0.5)/0.5
-            self.side3 = (self.softmax(self.outputs[2])[:,1].detach().unsqueeze(1)-0.5)/0.5
-            self.side4 = (self.softmax(self.outputs[3])[:,1].detach().unsqueeze(1)-0.5)/0.5
-            self.side5 = (self.softmax(self.outputs[4])[:,1].detach().unsqueeze(1)-0.5)/0.5
+            self.side1 = (torch.sigmoid(self.outputs[0])-0.5)/0.5
+            self.side2 = (torch.sigmoid(self.outputs[1])-0.5)/0.5
+            self.side3 = (torch.sigmoid(self.outputs[2])-0.5)/0.5
+            self.side4 = (torch.sigmoid(self.outputs[3])-0.5)/0.5
+            self.side5 = (torch.sigmoid(self.outputs[4])-0.5)/0.5
 
     def backward(self):
         """Calculate the loss"""
@@ -87,9 +96,11 @@ class DeepCrackModel(BaseModel):
 
         self.loss_side = 0.0
         for out, w in zip(self.outputs[:-1], self.weight_side):
-            self.loss_side += self.criterionSeg(out, self.label3d) * w
+            #self.loss_side += self.criterionSeg(out, self.label3d) * w
+            self.loss_side += self.criterionSeg(out, self.label) * w
 
-        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label3d)
+        #self.loss_fused = self.criterionSeg(self.outputs[-1], self.label3d)
+        self.loss_fused = self.criterionSeg(self.outputs[-1], self.label)
         self.loss_total = self.loss_side * lambda_side + self.loss_fused * lambda_fused
         self.loss_total.backward()
 

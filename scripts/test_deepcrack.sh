@@ -8,7 +8,7 @@ DATASET_MODE=deepcrack
 BATCH_SIZE=1
 NORM=batch
 
-NUM_CLASSES=2
+NUM_CLASSES=1
 NUM_TEST=10000
 
 python3 test.py \
