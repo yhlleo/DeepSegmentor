@@ -29,7 +29,7 @@ def cal_prf_metrics(pred_list, gt_list, thresh_step=0.01):
         fn = np.sum([v[2] for v in statistics])
 
         # calculate precision
-        p_acc = tp/(tp+fp)
+        p_acc = 1.0 if tp==0 and fp==0 else tp/(tp+fp)
         # calculate recall
         r_acc = tp/(tp+fn)
         # calculate f-score
