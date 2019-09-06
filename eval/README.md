@@ -32,8 +32,10 @@ For comparisons, you can download our predicted images and evaluation files from
 ```
 deepcrack
   |__ evaluation
+  |     |__ ...
   |__ test_latest
         |__images
+             |__ ...
 ```
 
  - `*_image.png`: input images,
