@@ -40,11 +40,11 @@ sh ./scripts/train_roadnet.sh <gpu_id>
 
 We provide our pretrained models here (roughly trained models for testing):
 
-|Model|Google Drive|Baidu Yun|
-|:----|:----:|:----:|
-|DeepCrack|[link]|[link]|
-|RoadNet|:ok_hand:[[link]](https://drive.google.com/open?id=1mTKp2ej9T3CUp3mV477w9EOx4EfcsGXE)|:ok_hand:[[link]](https://pan.baidu.com/s/1GEevUwp1xrEtASjixawrwg)(psw: c2gi)|
-|RoadNet++|[link]|[link]|
+|Model|Google Drive|Baidu Yun|Others|
+|:----|:----:|:----:|:----:|
+|DeepCrack|[link](https://drive.google.com/open?id=1MAwIlWw27feU8EEkP8pgbia7kcuxBwEG)|[link]|Fine-tuned|
+|RoadNet|:ok_hand:[[link]](https://drive.google.com/open?id=1mTKp2ej9T3CUp3mV477w9EOx4EfcsGXE)|:ok_hand:[[link]](https://pan.baidu.com/s/1GEevUwp1xrEtASjixawrwg)(psw: c2gi)|Roughly trained|
+|RoadNet++|[link]|[link]|-|
 
 ### 5.Testing
 
