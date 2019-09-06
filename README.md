@@ -38,7 +38,7 @@ sh ./scripts/train_deepcrack.sh <gpu_id>
 sh ./scripts/train_roadnet.sh <gpu_id>
 ```
 
-We provide our pretrained models here (just for testing):
+We provide our pretrained models here (roughly traind models for testing):
 
 |Model|Google Drive|Baidu Yun|
 |:----|:----:|:----:|
