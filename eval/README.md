@@ -2,7 +2,7 @@
 
 Evaluation tools for segmentation and edge/centerline detection.
 
-### Segmentation
+### Evaluation
 
  - Segmentation Metrics:
    - [x] Global Accuracy (G)
