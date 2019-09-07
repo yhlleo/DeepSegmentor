@@ -15,7 +15,9 @@ Evaluation tools for segmentation and edge/centerline detection.
    - [x] F-score (F)
 
 
-### Released Results:
+### Crack Detection:
+
+Released results:
 
 |Outputs|bT|G|C|I/U|P|R|F|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
