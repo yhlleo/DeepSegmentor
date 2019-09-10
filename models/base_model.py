@@ -116,7 +116,10 @@ class BaseModel(ABC):
     def update_learning_rate(self):
         """Update learning rates for all the networks; called at the end of every epoch"""
         for scheduler in self.schedulers:
-            scheduler.step(self.metric)
+            if self.opt.lr_policy == 'plateau':
+                scheduler.step(self.metric)
+            else:
+                scheduler.step()
         lr = self.optimizers[0].param_groups[0]['lr']
         print('learning rate = %.7f' % lr)
 
