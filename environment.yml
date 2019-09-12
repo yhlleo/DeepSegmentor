@@ -17,3 +17,4 @@ dependencies:
   - numpy==1.15.0
   - torchvision==0.2.1
   - visdom==0.1.7
+  - matplotlib
