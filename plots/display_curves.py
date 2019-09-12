@@ -2,7 +2,7 @@
 
 """
 Usage:
-  python3 display_pr_curve.py --data_dir <path_to_dir> --suffix prf
+  python3 display_curves.py --data_dir <path_to_dir> --suffix prf
 """
 
 import os
