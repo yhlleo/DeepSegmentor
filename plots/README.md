@@ -1,9 +1,9 @@
-# Display the PR-curve
+# Display the accuracy curves
 
-You can use this comand line to display PR-curves:
+You can use this comand line to display accuracy curves:
 
 ```
-python3 display_pr_curve.py. --data_dir <path_to_dir>
+python3 display_curves.py. --data_dir <path_to_dir>
 ```
 
 After that, you can get a figure as below:
