@@ -100,7 +100,7 @@ cd eval
 python eval.py --metric_mode prf --model_name deepcrack --output deepcrack.prf
 ```
 
-[[Display the accuracy curves >>>]](./plots/README.md)
+[[Display the accuracy curves >>>]](./plots)
 
 ### Acknowledgment
 
