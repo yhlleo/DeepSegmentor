@@ -16,7 +16,7 @@ plt.switch_backend('agg')
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', type=str, default='.', help='path to files') 
+    parser.add_argument('--data_dir', type=str, default='./demo', help='path to files') 
     parser.add_argument('--suffix', type=str, default='prf')
     parser.add_argument('--xlabel', type=str, default='Recall')
     parser.add_argument('--ylabel', type=str, default='Precision')
