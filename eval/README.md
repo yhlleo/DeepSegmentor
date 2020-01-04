@@ -19,7 +19,7 @@ Evaluation tools for segmentation and edge/centerline detection.
 
 Released results:
 
- > Note: The PyTorch implementation with the same loss achieves lower performances than the Caffe implementation. So, we suggest to set the loss mode as `focal` in the configuration file [train_deepcrack.sh](../scripts/train_deepcrack.sh). 
+ > Note: The PyTorch implementation with the same loss achieves lower performances than the Caffe implementation. So, we suggest to set the loss mode as `focal` in the configuration file [train_deepcrack.sh](../scripts/train_deepcrack.sh#L12). 
 
 |Outputs|bT|G|C|I/U|P|R|F|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
