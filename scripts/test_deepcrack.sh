@@ -21,5 +21,4 @@ python3 test.py \
   --num_classes ${NUM_CLASSES} \
   --norm ${NORM} \
   --num_test ${NUM_TEST}\
-  --use_augment 0 \
   --display_sides 1
