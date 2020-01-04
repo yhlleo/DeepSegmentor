@@ -88,3 +88,23 @@ def define_deepcrack(in_nc,
                      gpu_ids=[]):
     net = DeepCrackNet(in_nc, num_classes, ngf, norm)
     return init_net(net, init_type, init_gain, gpu_ids)
+
+
+class BinaryFocalLoss(nn.Module):
+    def __init__(self, alpha=1, gamma=2, logits=False, size_average=True):
+        super(BinaryFocalLoss, self).__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+        self.logits = logits
+        self.size_average = size_average
+        self.criterion = nn.BCEWithLogitsLoss(reduction='none')
+
+    def forward(self, inputs, targets):
+        BCE_loss = self.criterion(inputs, targets)
+        pt = torch.exp(-BCE_loss)
+        F_loss = self.alpha * (1-pt)**self.gamma * BCE_loss
+
+        if self.size_average:
+            return F_loss.mean()
+        else:
+            return F_loss.sum()

@@ -64,6 +64,7 @@ class BaseOptions():
         #parser.add_argument('--use_l1', type=int, default=1, help='using l1 loss')
 
         parser.add_argument('--use_selu', type=int, default=1, help='using selu active function')
+        parser.add_argument('--loss_mode', type=str, default='focal', help='[bce | focal]')
         self.initialized = True
         return parser
 

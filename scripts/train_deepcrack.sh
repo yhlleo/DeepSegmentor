@@ -9,6 +9,7 @@ BATCH_SIZE=1
 NUM_CLASSES=1
 LOAD_WIDTH=256
 LOAD_HEIGHT=256
+LOSS_MODE=focal
 
 NORM=batch
 NITER=400
@@ -30,4 +31,5 @@ python3 train.py \
   --load_width ${LOAD_WIDTH} \
   --load_height ${LOAD_HEIGHT} \
   --no_flip 0 \
-  --display_id 0
+  --display_id 0 \
+  --loss_mode ${LOSS_MODE}
