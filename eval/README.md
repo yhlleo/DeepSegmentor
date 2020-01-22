@@ -52,3 +52,6 @@ deepcrack
  - `*_side4.png`: side output 4,
  - `*_side5.png`: side output 5,
 
+
+
+**TODO: CRF refinement module will be released soon...**
