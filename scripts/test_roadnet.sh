@@ -23,5 +23,5 @@ python3 test.py \
   --load_width ${LOAD_WIDTH} \
   --load_height ${LOAD_HEIGHT} \
   --use_selu 0 \
-  --use_augment 0 \
+  --use_augment \
   --num_test ${NUM_TEST}
