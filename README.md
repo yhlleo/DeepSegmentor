@@ -1,4 +1,4 @@
-![Python 3.6](https://img.shields.io/badge/python-3.5.5-green.svg)
+![Python 3.5](https://img.shields.io/badge/python-3.5.5-green.svg)
 ![Packagist](https://img.shields.io/badge/Pytorch-0.4.1-red.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/yhlleo/DeepSegmentor)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)]((https://github.com/yhlleo/DeepSegmentor/graphs/commit-activity))
