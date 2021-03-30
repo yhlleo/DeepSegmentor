@@ -1,3 +1,9 @@
+![Python 3.6](https://img.shields.io/badge/python-3.5.5-green.svg)
+![Packagist](https://img.shields.io/badge/Pytorch-0.4.0-red.svg)
+![Last Commit](https://img.shields.io/github/last-commit/yhlleo/DeepSegmentor)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)]((https://github.com/yhlleo/DeepSegmentor/graphs/commit-activity))
+![Contributing](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
+
 # DeepSegmentor
 A Pytorch implementation of DeepCrack and RoadNet projects.
 
