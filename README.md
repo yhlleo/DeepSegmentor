@@ -112,7 +112,7 @@ python eval.py --metric_mode prf --model_name deepcrack --output deepcrack.prf
 
 - This code is based on the [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix). Thanks to the contributors of this project. 
 
-- If you are familar to [Google Colab](https://colab.research.google.com/), there is an implementation of [Colab version](https://colab.research.google.com/drive/1t2C5mBOy7xuB4kP9TQzVOI0nglJBkMMD?usp=sharing) (provided by [DZDL/DeepSegmentor](https://github.com/DZDL/DeepSegmentor)). Besides, there is a WebApp version of this project: [crack-detector](https://github.com/DZDL/crack-detector). 
+- If you are familar to [Google Colab](https://colab.research.google.com/), there is an implementation of [Colab version](https://colab.research.google.com/drive/13qSMnU1ERU7riHMMiv9MEEr7VTMhfZs9?usp=sharing) (provided by [DZDL/DeepSegmentor](https://github.com/DZDL/DeepSegmentor)). Besides, there is a WebApp version of this project: [crack-detector](https://github.com/DZDL/crack-detector). 
 
 ### References
 
