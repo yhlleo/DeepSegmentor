@@ -98,6 +98,7 @@ class DeepCrackModel(BaseModel):
         lambda_fused = self.opt.lambda_fused
 
         self.loss_side = 0.0
+        self.label = self.label.float() 
         for out, w in zip(self.outputs[:-1], self.weight_side):
             #self.loss_side += self.criterionSeg(out, self.label3d) * w
             self.loss_side += self.criterionSeg(out, self.label) * w
