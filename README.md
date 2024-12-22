@@ -66,6 +66,8 @@ sh ./scripts/test_deepcrack.sh <gpu_id>
 
 [[See more examples >>>]](./figures/deepcrack.md)
 
+**PS**: Once you downloaded the pretrained models, you can follow the test example in the [jupyter notebook](./test_example.ipynb) to test your own images.
+
  - Road Detection
 
 ```
