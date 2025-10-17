@@ -1,4 +1,22 @@
-torch>=0.4.0
-torchvision>=0.2.1
-dominate>=2.3.1
-visdom>=0.1.8.3
+# 数値計算・科学計算
+numpy
+scipy
+scikit-image
+scikit-learn
+matplotlib
+
+# 画像関連
+Pillow
+
+# Web / HTML用
+dominate
+
+# 可視化ツール
+visdom
+
+# CPU版 PyTorch
+torch
+torchvision
+
+# OpenCV
+opencv-python
